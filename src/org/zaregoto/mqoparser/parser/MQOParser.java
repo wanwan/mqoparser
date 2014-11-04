@@ -1,20 +1,21 @@
 package org.zaregoto.mqoparser.parser;
 
-import org.zaregoto.examples.android.miku.util.LogUtil;
+
+import org.zaregoto.mqoparser.util.LogUtil;
 
 import java.io.*;
 
 /**
  * Created by waka on 14/10/23.
  */
-public class Parser {
+public class MQOParser {
 
     private File mqofile = null;
     private BufferedInputStream bis = null;
 
     private Lexer lexer = null;
 
-    public Parser() {
+    public MQOParser() {
     }
 
     public void open(String filename) throws FileNotFoundException {

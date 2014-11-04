@@ -23,9 +23,9 @@ public class Lexer {
         this.br = new BufferedReader(new InputStreamReader(is));
     }
 
-    public Parser.MQOElement next() throws IOException {
+    public MQOParser.MQOElement next() throws IOException {
 
-        Parser.MQOElement next = null;
+        MQOParser.MQOElement next = null;
         int c;
         StringBuffer buf = null;
         LEXER_STS sts = LEXER_STS.CURRENT_NOT_DEFINED;
@@ -95,13 +95,13 @@ public class Lexer {
     }
 
 
-    private Parser.MQOElement createMQOElement(StringBuffer buf) {
+    private MQOParser.MQOElement createMQOElement(StringBuffer buf) {
 
         String word = buf.toString().trim();
-        Parser.MQOElement element = null;
+        MQOParser.MQOElement element = null;
 
         search:
-        for (Parser.MQOElement e : Parser.MQOElement.values()) {
+        for (MQOParser.MQOElement e : MQOParser.MQOElement.values()) {
             if (e.equals(word)) {
                 element = e;
                 break search;
@@ -113,7 +113,7 @@ public class Lexer {
             Pattern p = Pattern.compile(regex);
             Matcher m = p.matcher(word);
             if (m.find()) {
-                element = Parser.MQOElement.STRING;
+                element = MQOParser.MQOElement.STRING;
                 element.setValue(word);
             }
         }
@@ -123,7 +123,7 @@ public class Lexer {
             Pattern p = Pattern.compile(regex);
             Matcher m = p.matcher(word);
             if (m.find()) {
-                element = Parser.MQOElement.INT;
+                element = MQOParser.MQOElement.INT;
                 element.setValue(word);
             }
         }
@@ -133,13 +133,13 @@ public class Lexer {
             Pattern p = Pattern.compile(regex);
             Matcher m = p.matcher(word);
             if (m.find()) {
-                element = Parser.MQOElement.FLOAT;
+                element = MQOParser.MQOElement.FLOAT;
                 element.setValue(word);
             }
         }
 
         if (null == element) {
-            element = Parser.MQOElement.BYTE_ARRAY;
+            element = MQOParser.MQOElement.BYTE_ARRAY;
             element.setValue(word);
         }
 
