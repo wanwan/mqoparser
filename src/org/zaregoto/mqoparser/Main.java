@@ -13,7 +13,14 @@ public class Main {
         // create Options object
         Options options = new Options();
         // add option
-        options.addOption("f", false, "input mqo file");
+        Option file = OptionBuilder
+                .hasArg(true)
+                .withArgName("mqofile")
+                .isRequired(true)
+                .withDescription("-f mqofile")
+                .withLongOpt("file")
+                .create("f");
+        options.addOption(file);
 
         CommandLineParser cliparser = new PosixParser();
         CommandLine cmd = null;
@@ -23,14 +30,19 @@ public class Main {
             e.printStackTrace();
         }
 
-        if (cmd.hasOption("f")) {
-            String value = cmd.getOptionValue("f");
+        if (null != cmd && cmd.hasOption("f")) {
+            //String value = cmd.getOptionValue("f");
+            String value = cmd.getOptionValue('f');
             System.out.println("filename: " + value);
 
             MQOParser parser = new MQOParser();
             try {
                 parser.open(value);
+
+                parser.parse();
             } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
                 e.printStackTrace();
             } finally {
                 try {

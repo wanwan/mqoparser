@@ -7,10 +7,7 @@ import java.io.InputStreamReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created by waka on 14/10/26.
- */
-public class Lexer {
+public class LexicalAnalyzer {
 
     enum LEXER_STS {
         CURRENT_NOT_DEFINED,
@@ -19,13 +16,13 @@ public class Lexer {
 
     BufferedReader br = null;
 
-    public Lexer(InputStream is) {
+    public LexicalAnalyzer(InputStream is) {
         this.br = new BufferedReader(new InputStreamReader(is));
     }
 
-    public MQOParser.MQOElement next() throws IOException {
+    public MQOElement next() throws IOException {
 
-        MQOParser.MQOElement next = null;
+        MQOElement next = null;
         int c;
         StringBuffer buf = null;
         LEXER_STS sts = LEXER_STS.CURRENT_NOT_DEFINED;
@@ -38,7 +35,7 @@ public class Lexer {
                 switch (sts) {
                     case CURRENT_NOT_DEFINED:
                         if (isSeparater(c)) {
-                            //skip
+                            /* go through */
                         }
                         else if (isChunkSeparaterIn(c)) {
                             buf = new StringBuffer();
@@ -95,13 +92,13 @@ public class Lexer {
     }
 
 
-    private MQOParser.MQOElement createMQOElement(StringBuffer buf) {
+    private MQOElement createMQOElement(StringBuffer buf) {
 
         String word = buf.toString().trim();
-        MQOParser.MQOElement element = null;
+        MQOElement element = null;
 
         search:
-        for (MQOParser.MQOElement e : MQOParser.MQOElement.values()) {
+        for (MQOElement e : MQOElement.values()) {
             if (e.equals(word)) {
                 element = e;
                 break search;
@@ -113,7 +110,7 @@ public class Lexer {
             Pattern p = Pattern.compile(regex);
             Matcher m = p.matcher(word);
             if (m.find()) {
-                element = MQOParser.MQOElement.STRING;
+                element = MQOElement.STRING;
                 element.setValue(word);
             }
         }
@@ -123,7 +120,7 @@ public class Lexer {
             Pattern p = Pattern.compile(regex);
             Matcher m = p.matcher(word);
             if (m.find()) {
-                element = MQOParser.MQOElement.INT;
+                element = MQOElement.INT;
                 element.setValue(word);
             }
         }
@@ -133,13 +130,13 @@ public class Lexer {
             Pattern p = Pattern.compile(regex);
             Matcher m = p.matcher(word);
             if (m.find()) {
-                element = MQOParser.MQOElement.FLOAT;
+                element = MQOElement.FLOAT;
                 element.setValue(word);
             }
         }
 
         if (null == element) {
-            element = MQOParser.MQOElement.BYTE_ARRAY;
+            element = MQOElement.BYTE_ARRAY;
             element.setValue(word);
         }
 

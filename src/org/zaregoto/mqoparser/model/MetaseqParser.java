@@ -1,7 +1,6 @@
 package org.zaregoto.mqoparser.model;
 
-import org.zaregoto.examples.android.miku.parser.mqo.MetaseqMaterial.SHADER;
-import org.zaregoto.examples.android.miku.util.LogUtil;
+import org.zaregoto.mqoparser.util.LogUtil;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -239,7 +238,7 @@ public class MetaseqParser {
     /**
      * 
      * @param br
-     * @param materialData
+     * @param materialDatas
      * @throws java.io.IOException
      */
     private void parseMaterial(BufferedReader br, ArrayList<MetaseqMaterial> materialDatas) throws IOException {
@@ -266,23 +265,23 @@ public class MetaseqParser {
                         	Matcher matcher = shaderMatcher.matcher(element);
                         	if (matcher.find()) {
                         		int shader = Integer.parseInt(matcher.group(1));
-                        		switch (shader) {
-                        		case 0:
-                        			material.setShader(SHADER.SHADER_CLASSIC);
-                        			break;
-                        		case 1:
-                        			material.setShader(SHADER.SHADER_CONSTANT);                        			
-                        			break;
-                        		case 2:
-                        			material.setShader(SHADER.SHADER_LAMBERT);                        			
-                        			break;
-                        		case 3:
-                        			material.setShader(SHADER.SHADER_PHONG);                        			
-                        			break;
-                        		case 4:
-                        			material.setShader(SHADER.SHADER_BLINN);                        			
-                        			break;
-                        		}                        		
+//                        		switch (shader) {
+//                        		case 0:
+//                        			material.setShader(SHADER.SHADER_CLASSIC);
+//                        			break;
+//                        		case 1:
+//                        			material.setShader(SHADER.SHADER_CONSTANT);
+//                        			break;
+//                        		case 2:
+//                        			material.setShader(SHADER.SHADER_LAMBERT);
+//                        			break;
+//                        		case 3:
+//                        			material.setShader(SHADER.SHADER_PHONG);
+//                        			break;
+//                        		case 4:
+//                        			material.setShader(SHADER.SHADER_BLINN);
+//                        			break;
+//                        		}
                         	}
                         }
                         else if (element.matches("vcol\\(([01])\\)")) {
