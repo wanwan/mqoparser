@@ -6,6 +6,7 @@ import org.zaregoto.mqoparser.parser.MQOElement;
 public abstract class AbstractState implements State {
 
     private static State current;
+    private static Thread currentThread;
 
     protected AbstractState() {
     }
@@ -93,6 +94,50 @@ public abstract class AbstractState implements State {
             null
     };
 
-    protected void transfer() {
+
+    public void init() {
+        current = new Init();
+        currentThread = new Thread(current);
+
+
+    }
+
+    protected boolean transfer(MQOElement input) throws IllegalAccessException, InstantiationException, InterruptedException {
+
+        Class next;
+        State nextState;
+        String threadName;
+        boolean ret = false;
+
+        search_next:
+        for (TBL element: table) {
+            if (current.getClass().equals(element.current)
+                    && input.ordinal() == element.input.ordinal()) {
+                next = element.next;
+
+                if (!current.getClass().equals(next)) {
+                    ret = true;
+
+                    nextState = (State) next.newInstance();
+                    if (current.after()) {
+                        if (nextState.before()) {
+                            if (null != currentThread) {
+                                currentThread.join();
+                                currentThread = null;
+                            }
+
+                            threadName = String.format("state-%s", next.getName());
+                            currentThread = new Thread(nextState);
+                            currentThread.setName(threadName);
+                            currentThread.start();
+
+                            break search_next;
+                        }
+                    }
+                }
+            }
+        }
+
+        return ret;
     }
 }
