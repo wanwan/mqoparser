@@ -1,0 +1,3 @@
+
+* Init は IDLE に変更
+* State の before/after と received は preTransfer/postTransfer および必要なら run と exit にするべき

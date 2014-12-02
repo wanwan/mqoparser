@@ -67,8 +67,8 @@ public class StateMachine {
 
             new TBL(ReadHeader.class,       MQOElement.HEADER_METASEQUOIA,              ReadHeader.class),
             new TBL(ReadHeader.class,       MQOElement.HEADER_KEYWORD_DOCUMENT,         ReadHeader.class),
-            new TBL(ReadHeader.class,       MQOElement.HEADER_FORMAT,                   ReadHeader.class),
-            new TBL(ReadHeader.class,       MQOElement.HEADER_KEYWORD_VER,              Init.class      ),
+            new TBL(ReadHeader.class,       MQOElement.HEADER_FORMAT,                   ReadHeaderFormat.class),
+            new TBL(ReadHeader.class,       MQOElement.HEADER_KEYWORD_VER,              ReadHeaderVer.class   ),
             new TBL(ReadHeader.class,       MQOElement.CHUNK_TRIAL_NOISE,               Init.class      ),
             new TBL(ReadHeader.class,       MQOElement.CHUNK_INCLUDE_XML,               Init.class      ),
             new TBL(ReadHeader.class,       MQOElement.CHUNK_SCENE,                     Init.class      ),
@@ -95,7 +95,11 @@ public class StateMachine {
             new TBL(ReadHeader.class,       MQOElement.INT,                             Init.class      ),
             new TBL(ReadHeader.class,       MQOElement.FLOAT,                           Init.class      ),
             new TBL(ReadHeader.class,       MQOElement.BYTE_ARRAY,                      Init.class      ),
-            
+
+            new TBL(ReadHeaderFormat.class, MQOElement.BYTE_ARRAY,                      ReadHeader.class),
+
+            new TBL(ReadHeaderVer.class,    MQOElement.FLOAT,                           Init.class      ),
+
             null
     };
 
