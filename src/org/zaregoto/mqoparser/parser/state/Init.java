@@ -1,8 +1,16 @@
 package org.zaregoto.mqoparser.parser.state;
 
+import org.zaregoto.mqoparser.model.MQOHeader;
 import org.zaregoto.mqoparser.parser.MQOElement;
 
 public class Init implements State {
+
+    private final String stateName = "Init";
+
+    @Override
+    public String getStateName() {
+        return stateName;
+    }
 
     @Override
     public boolean before() {
@@ -15,13 +23,11 @@ public class Init implements State {
     }
 
     @Override
-    public boolean receive(MQOElement e) {
+    public boolean receive(StateMachine sm, MQOElement input) {
 
         boolean ret = false;
 
-        switch (e) {
-            case HEADER_METASEQUOIA:
-                break;
+        switch (input) {
             default:
                 break;
         }
@@ -29,8 +35,4 @@ public class Init implements State {
         return ret;
     }
 
-    @Override
-    public void run() {
-
-    }
 }

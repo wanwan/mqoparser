@@ -3,6 +3,7 @@ package org.zaregoto.mqoparser;
 
 import org.apache.commons.cli.*;
 import org.zaregoto.mqoparser.parser.MQOParser;
+import org.zaregoto.mqoparser.parser.exception.StateTransferException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -43,6 +44,8 @@ public class Main {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
+                e.printStackTrace();
+            } catch (StateTransferException e) {
                 e.printStackTrace();
             } finally {
                 try {

@@ -1,18 +1,24 @@
 package org.zaregoto.mqoparser.parser.state;
 
 import org.zaregoto.mqoparser.parser.MQOElement;
+import org.zaregoto.mqoparser.parser.exception.StateTransferException;
+import org.zaregoto.mqoparser.util.LogUtil;
+
+import java.util.Stack;
+import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 
-public abstract class AbstractState implements State {
+public class StateMachine {
 
-    private static State current;
-    private static Thread currentThread;
+    private State current;
+    private Stack<Object> stack;
 
-    protected AbstractState() {
+    private ConcurrentLinkedQueue<MQOElement> inputs = new ConcurrentLinkedQueue<MQOElement>();
+
+    public StateMachine() {
+        stack = new Stack<Object>();
     }
-
-    public abstract boolean receive(MQOElement e);
-    public abstract void run();
 
     private class TBL {
         Class current;
@@ -60,8 +66,8 @@ public abstract class AbstractState implements State {
             new TBL(Init.class,       MQOElement.BYTE_ARRAY,                      Init.class      ),
 
             new TBL(ReadHeader.class,       MQOElement.HEADER_METASEQUOIA,              ReadHeader.class),
-            new TBL(ReadHeader.class,       MQOElement.HEADER_KEYWORD_DOCUMENT,         ReadHeader.class      ),
-            new TBL(ReadHeader.class,       MQOElement.HEADER_FORMAT,                   ReadHeader.class      ),
+            new TBL(ReadHeader.class,       MQOElement.HEADER_KEYWORD_DOCUMENT,         ReadHeader.class),
+            new TBL(ReadHeader.class,       MQOElement.HEADER_FORMAT,                   ReadHeader.class),
             new TBL(ReadHeader.class,       MQOElement.HEADER_KEYWORD_VER,              Init.class      ),
             new TBL(ReadHeader.class,       MQOElement.CHUNK_TRIAL_NOISE,               Init.class      ),
             new TBL(ReadHeader.class,       MQOElement.CHUNK_INCLUDE_XML,               Init.class      ),
@@ -90,54 +96,73 @@ public abstract class AbstractState implements State {
             new TBL(ReadHeader.class,       MQOElement.FLOAT,                           Init.class      ),
             new TBL(ReadHeader.class,       MQOElement.BYTE_ARRAY,                      Init.class      ),
             
-
             null
     };
 
-
-    public void init() {
-        current = new Init();
-        currentThread = new Thread(current);
-
-
+    public synchronized void push(Object obj) {
+        stack.push(obj);
     }
 
-    protected boolean transfer(MQOElement input) throws IllegalAccessException, InstantiationException, InterruptedException {
+    public synchronized Object pop() {
+        return stack.pop();
+    }
+
+
+    public void init() throws StateTransferException {
+
+        current = new Init();
+
+        if (current.before()) {
+            // TODO: do nothing?
+        }
+        else {
+            throw new StateTransferException("init status before return false");
+        }
+    }
+
+
+    public void transfer(final MQOElement input) throws StateTransferException {
 
         Class next;
-        State nextState;
-        String threadName;
-        boolean ret = false;
+        State nextState = null;
 
-        search_next:
         for (TBL element: table) {
-            if (current.getClass().equals(element.current)
-                    && input.ordinal() == element.input.ordinal()) {
-                next = element.next;
+            if (null != element) {
+                if (current.getClass().equals(element.current)
+                        && input.ordinal() == element.input.ordinal()) {
+                    next = element.next;
 
-                if (!current.getClass().equals(next)) {
-                    ret = true;
+                    if (!current.getClass().equals(next)) {
 
-                    nextState = (State) next.newInstance();
-                    if (current.after()) {
-                        if (nextState.before()) {
-                            if (null != currentThread) {
-                                currentThread.join();
-                                currentThread = null;
-                            }
-
-                            threadName = String.format("state-%s", next.getName());
-                            currentThread = new Thread(nextState);
-                            currentThread.setName(threadName);
-                            currentThread.start();
-
-                            break search_next;
+                        try {
+                            nextState = (State) next.newInstance();
+                        } catch (InstantiationException e) {
+                            e.printStackTrace();
+                        } catch (IllegalAccessException e) {
+                            e.printStackTrace();
                         }
+                        if (null != current && current.after()) {
+                            if (null != nextState && nextState.before()) {
+                                current = nextState;
+                                current.receive(this, input);
+                                LogUtil.d("StateMachine.transfer current: " + current.getStateName() + " input: " + input + " next: " + nextState.getStateName());
+                                break;
+                            } else {
+                                throw new StateTransferException("state transfer failed, next status before() routine return error");
+                            }
+                        }
+                        else {
+                            throw new StateTransferException("state transfer failed, current status after() routine return error");
+                        }
+                    } else {
+                        current.receive(this, input);
+                        break;
                     }
                 }
             }
+            else {
+                throw new StateTransferException("cannot find transfer table element");
+            }
         }
-
-        return ret;
     }
 }

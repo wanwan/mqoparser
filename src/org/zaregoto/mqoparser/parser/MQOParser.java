@@ -1,6 +1,9 @@
 package org.zaregoto.mqoparser.parser;
 
 
+import org.zaregoto.mqoparser.parser.exception.StateTransferException;
+import org.zaregoto.mqoparser.parser.state.StateMachine;
+
 import java.io.*;
 
 
@@ -10,6 +13,8 @@ public class MQOParser {
     private BufferedInputStream bis = null;
 
     private LexicalAnalyzer lexicalAnalyzer = null;
+    private StateMachine stateMachine = new StateMachine();
+
 
     public MQOParser() {
     }
@@ -24,14 +29,19 @@ public class MQOParser {
         else {
             throw new FileNotFoundException("filename is null");
         }
+
     }
 
-    public void parse() throws IOException {
+    public void parse() throws IOException, StateTransferException {
 
         MQOElement e;
 
+        stateMachine.init();
+
         while (null != (e = lexicalAnalyzer.next())) {
             e.dump();
+
+            stateMachine.transfer(e);
         }
     }
 
