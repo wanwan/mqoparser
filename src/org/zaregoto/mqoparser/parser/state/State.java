@@ -7,8 +7,7 @@ public interface State {
 
     public String getStateName();
 
-    public boolean before();
-    public boolean after();
 
-    public boolean receive(StateMachine sm, MQOElement input);
+    public boolean preTransfer(StateMachine sm, MQOElement input);
+    public boolean postTransfer(StateMachine sm, MQOElement input);
 }

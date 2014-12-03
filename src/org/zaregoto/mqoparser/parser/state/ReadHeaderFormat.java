@@ -5,7 +5,7 @@ import org.zaregoto.mqoparser.parser.MQOElement;
 
 public class ReadHeaderFormat implements State {
 
-    private final String stateName = "ReadHeader";
+    private final String stateName = "ReadHeaderFormat";
 
     @Override
     public String getStateName() {
@@ -13,17 +13,7 @@ public class ReadHeaderFormat implements State {
     }
 
     @Override
-    public boolean before() {
-        return true;
-    }
-
-    @Override
-    public boolean after() {
-        return true;
-    }
-
-    @Override
-    public boolean receive(StateMachine sm, MQOElement input) {
+    public boolean postTransfer(StateMachine sm, MQOElement input) {
 
         MQOHeader hdr = null;
         boolean ret = false;
@@ -39,6 +29,20 @@ public class ReadHeaderFormat implements State {
                 break;
         }
 
+        return ret;
+
+    }
+
+    @Override
+    public boolean preTransfer(StateMachine sm, MQOElement input) {
+
+        boolean ret = false;
+
+        switch (input) {
+            case HEADER_FORMAT:
+                ret = true;
+                break;
+        }
         return ret;
     }
 

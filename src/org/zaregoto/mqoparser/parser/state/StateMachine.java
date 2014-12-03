@@ -5,7 +5,6 @@ import org.zaregoto.mqoparser.parser.exception.StateTransferException;
 import org.zaregoto.mqoparser.util.LogUtil;
 
 import java.util.Stack;
-import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 
@@ -116,7 +115,7 @@ public class StateMachine {
 
         current = new Init();
 
-        if (current.before()) {
+        if (current.preTransfer(this, MQOElement.NOP)) {
             // TODO: do nothing?
         }
         else {
@@ -145,21 +144,20 @@ public class StateMachine {
                         } catch (IllegalAccessException e) {
                             e.printStackTrace();
                         }
-                        if (null != current && current.after()) {
-                            if (null != nextState && nextState.before()) {
+                        if (null != current && current.postTransfer(this, input)) {
+                            if (null != nextState && nextState.preTransfer(this, input)) {
                                 current = nextState;
-                                current.receive(this, input);
                                 LogUtil.d("StateMachine.transfer current: " + current.getStateName() + " input: " + input + " next: " + nextState.getStateName());
                                 break;
                             } else {
-                                throw new StateTransferException("state transfer failed, next status before() routine return error");
+                                throw new StateTransferException("state transfer failed, next status preTransfer() routine return error");
                             }
                         }
                         else {
-                            throw new StateTransferException("state transfer failed, current status after() routine return error");
+                            throw new StateTransferException("state transfer failed, current status postTransfer() routine return error");
                         }
                     } else {
-                        current.receive(this, input);
+                        current.preTransfer(this, input);
                         break;
                     }
                 }

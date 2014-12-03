@@ -6,6 +6,7 @@ import org.zaregoto.mqoparser.util.LogUtil;
 * Created by waka on 14/12/02.
 */
 public enum MQOElement {
+    NOP(""),
     HEADER_METASEQUOIA("Metasequoia"),
     HEADER_KEYWORD_DOCUMENT("Document"),
     HEADER_FORMAT("Format"),

@@ -13,21 +13,21 @@ public class Init implements State {
     }
 
     @Override
-    public boolean before() {
+    public boolean postTransfer(StateMachine sm, MQOElement input) {
         return true;
     }
 
     @Override
-    public boolean after() {
-        return true;
-    }
-
-    @Override
-    public boolean receive(StateMachine sm, MQOElement input) {
+    public boolean preTransfer(StateMachine sm, MQOElement input) {
 
         boolean ret = false;
 
         switch (input) {
+            case NOP:
+                ret = true;
+                break;
+            case FLOAT:
+                ret = true;
             default:
                 break;
         }

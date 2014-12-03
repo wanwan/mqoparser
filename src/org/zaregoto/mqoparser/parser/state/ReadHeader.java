@@ -13,17 +13,12 @@ public class ReadHeader implements State {
     }
 
     @Override
-    public boolean before() {
+    public boolean postTransfer(StateMachine sm, MQOElement input) {
         return true;
     }
 
     @Override
-    public boolean after() {
-        return true;
-    }
-
-    @Override
-    public boolean receive(StateMachine sm, MQOElement input) {
+    public boolean preTransfer(StateMachine sm, MQOElement input) {
 
         MQOHeader hdr = null;
         boolean ret = false;
@@ -32,8 +27,10 @@ public class ReadHeader implements State {
             case HEADER_METASEQUOIA:
                 hdr = new MQOHeader();
                 sm.push(hdr);
+                ret = true;
                 break;
             case HEADER_KEYWORD_DOCUMENT:
+                ret = true;
                 break;
             case HEADER_FORMAT:
                 hdr = (MQOHeader)sm.pop();
@@ -45,6 +42,9 @@ public class ReadHeader implements State {
                 hdr = (MQOHeader)sm.pop();
                 hdr.setVersion(new Float(input.getValue()));
                 sm.push(hdr);
+                ret = true;
+                break;
+            case BYTE_ARRAY:
                 ret = true;
                 break;
             default:

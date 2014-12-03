@@ -5,7 +5,7 @@ import org.zaregoto.mqoparser.parser.MQOElement;
 
 public class ReadHeaderVer implements State {
 
-    private final String stateName = "ReadHeader";
+    private final String stateName = "ReadHeaderVer";
 
     @Override
     public String getStateName() {
@@ -13,17 +13,7 @@ public class ReadHeaderVer implements State {
     }
 
     @Override
-    public boolean before() {
-        return true;
-    }
-
-    @Override
-    public boolean after() {
-        return true;
-    }
-
-    @Override
-    public boolean receive(StateMachine sm, MQOElement input) {
+    public boolean postTransfer(StateMachine sm, MQOElement input) {
 
         MQOHeader hdr = null;
         boolean ret = false;
@@ -38,6 +28,23 @@ public class ReadHeaderVer implements State {
                     hdr.setVersion(null);
                 }
                 sm.push(hdr);
+                ret = true;
+                break;
+            default:
+                break;
+        }
+
+        return ret;
+    }
+
+    @Override
+    public boolean preTransfer(StateMachine sm, MQOElement input) {
+
+        MQOHeader hdr = null;
+        boolean ret = false;
+
+        switch (input) {
+            case HEADER_KEYWORD_VER:
                 ret = true;
                 break;
             default:
