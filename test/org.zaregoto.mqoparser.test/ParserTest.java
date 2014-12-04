@@ -32,28 +32,18 @@ public class ParserTest {
     public void checkHeader() {
 
         String samplefile = "sample/primitive/cube.mqo";
-
-        MQOParser parser = new MQOParser();
         MQOData data = null;
+
         try {
-            parser.open(samplefile);
-
-            data = parser.parse();
-
-            LogUtil.d(data.toString());
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+            data = readData(samplefile);
         } catch (StateTransferException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                parser.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            Assert.assertTrue(false);
+            return;
+        } catch (IOException e) {
+            e.printStackTrace();
+            Assert.assertTrue(false);
+            return;
         }
 
         if (null != data) {
@@ -73,5 +63,52 @@ public class ParserTest {
         else {
             Assert.assertTrue(false);
         }
+    }
+
+
+    @Test
+    public void checkTrailNoise() {
+
+        String samplefile = "sample/error/trialnoise.mqo";
+        MQOData data = null;
+
+        try {
+            data = readData(samplefile);
+        } catch (StateTransferException e) {
+            e.printStackTrace();
+            Assert.assertTrue(true);
+            return;
+        } catch (IOException e) {
+            e.printStackTrace();
+            Assert.assertTrue(false);
+            return;
+        }
+
+        if (null != data) {
+            Assert.assertTrue(false);
+        }
+    }
+
+
+    private MQOData readData(String filename) throws IOException, StateTransferException {
+
+        MQOParser parser = new MQOParser();
+        MQOData data = null;
+        try {
+            parser.open(filename);
+
+            data = parser.parse();
+
+            LogUtil.d(data.toString());
+
+        } finally {
+            try {
+                parser.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return data;
     }
 }
