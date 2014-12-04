@@ -1,6 +1,5 @@
 package org.zaregoto.mqoparser.parser.state;
 
-import org.zaregoto.mqoparser.model.MQOHeader;
 import org.zaregoto.mqoparser.parser.MQOElement;
 
 public class Idle implements State {
@@ -20,14 +19,12 @@ public class Idle implements State {
     @Override
     public boolean preTransfer(StateMachine sm, MQOElement input) {
 
-        boolean ret = false;
+        boolean ret = true;
 
         switch (input) {
             case NOP:
-                ret = true;
-                break;
             case FLOAT:
-                ret = true;
+                break;
             default:
                 break;
         }

@@ -21,7 +21,6 @@ public class ReadTrialNoise implements State {
     @Override
     public boolean preTransfer(StateMachine sm, MQOElement input) throws StateTransferException {
 
-        MQOHeader hdr = null;
         boolean ret = false;
 
         switch (input) {

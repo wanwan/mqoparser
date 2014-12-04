@@ -2,11 +2,12 @@ package org.zaregoto.mqoparser.parser.state;
 
 import org.zaregoto.mqoparser.model.MQOData;
 import org.zaregoto.mqoparser.model.MQOHeader;
+import org.zaregoto.mqoparser.model.MQOIncludeXml;
 import org.zaregoto.mqoparser.parser.MQOElement;
 
-public class ReadHeaderVer implements State {
+public class ReadIncludeXml implements State {
 
-    private final String stateName = "ReadHeaderVer";
+    private final String stateName = "ReadIncludeXml";
 
     @Override
     public String getStateName() {
@@ -16,25 +17,16 @@ public class ReadHeaderVer implements State {
     @Override
     public boolean postTransfer(StateMachine sm, MQOElement input) {
 
-        MQOHeader hdr = null;
         boolean ret = true;
 
         switch (input) {
-            case FLOAT:
-                hdr = (MQOHeader)sm.pop();
-                if (null != input && null != input.getValue()) {
-                    hdr.setVersion(new Float(input.getValue()));
-                }
-                else {
-                    hdr.setVersion(null);
-                }
-                //sm.push(hdr);
-                MQOData mqoData = sm.getMqodata();
-                mqoData.setHeader(hdr);
-                ret = true;
+            case STRING:
+                MQOIncludeXml xml = new MQOIncludeXml();
+                xml.setFilename(input.getValue());
+                MQOData data = sm.getMqodata();
+                data.addIncludeXml(xml);
                 break;
             default:
-                ret = false;
                 break;
         }
 
@@ -48,11 +40,10 @@ public class ReadHeaderVer implements State {
         boolean ret = true;
 
         switch (input) {
-            case HEADER_KEYWORD_VER:
+            case CHUNK_INCLUDE_XML:
                 ret = true;
                 break;
             default:
-                ret = false;
                 break;
         }
 

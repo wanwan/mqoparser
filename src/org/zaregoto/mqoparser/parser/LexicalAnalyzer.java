@@ -106,12 +106,12 @@ public class LexicalAnalyzer {
         }
 
         if (null == element) {
-            String regex = "\".*\"";
+            String regex = "\"(.*)\"";
             Pattern p = Pattern.compile(regex);
             Matcher m = p.matcher(word);
             if (m.find()) {
                 element = MQOElement.STRING;
-                element.setValue(word);
+                element.setValue(m.group(1));
             }
         }
 
