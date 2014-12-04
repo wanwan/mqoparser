@@ -15,7 +15,7 @@ import java.util.Iterator;
  * Time: 6:10 AM
  * To change this template use File | Settings | File Templates.
  */
-public class MetaseqObject {
+public class MQOObject {
 
    enum SHADING {
         FLAT_SHADING,
@@ -79,10 +79,10 @@ public class MetaseqObject {
     private Integer bVertex = null;
     private Integer face = null;
 
-    private MetaseqPolygon polygons = null;
+    private MQOPolygon polygons = null;
 
-    public MetaseqObject() {
-    	polygons = new MetaseqPolygon();
+    public MQOObject() {
+    	polygons = new MQOPolygon();
         return;
     }
 
@@ -272,12 +272,12 @@ public class MetaseqObject {
     }
 
 
-	public void setPolygons(MetaseqPolygon polygons) {
+	public void setPolygons(MQOPolygon polygons) {
 		this.polygons = polygons;
 	}
 
 
-	public MetaseqPolygon getPolygons() {
+	public MQOPolygon getPolygons() {
 		return polygons;
 	}
 	
@@ -289,14 +289,14 @@ public class MetaseqObject {
 		float[] expands = null;
 		ByteBuffer bb = null;
 		FloatBuffer fb = null;
-		MetaseqPolygon.Vertex vertex = null;
+		MQOPolygon.Vertex vertex = null;
 		int i = 0;
 
 		if (null != polygons ) {
 			size = polygons.getVertexes().size() * 3;
 			expands = new float[size];
 		
-			Iterator<MetaseqPolygon.Vertex> it = polygons.getVertexes().iterator();
+			Iterator<MQOPolygon.Vertex> it = polygons.getVertexes().iterator();
 			while (it.hasNext()) {
 				vertex = it.next();
 				expands[i+0] = vertex.getX();
@@ -325,12 +325,12 @@ public class MetaseqObject {
 		short[] __expands = null;
 		ByteBuffer bb = null;
 		ShortBuffer sb = null;
-		MetaseqPolygon.Polygon polygon = null;
+		MQOPolygon.Polygon polygon = null;
 
 		if (null != polygons ) {
 			expands = new ArrayList<Short>();
 		
-			Iterator<MetaseqPolygon.TrianglePolygon> it = polygons.getTriangles().iterator();
+			Iterator<MQOPolygon.TrianglePolygon> it = polygons.getTriangles().iterator();
 			while (it.hasNext()) {
 				polygon = it.next();
 				expands.addAll(Arrays.asList(polygon.getIndexes()));
@@ -363,12 +363,12 @@ public class MetaseqObject {
 		short[] __expands = null;
 		ByteBuffer bb = null;
 		ShortBuffer sb = null;
-		MetaseqPolygon.Polygon polygon = null;
+		MQOPolygon.Polygon polygon = null;
 
 		if (null != polygons ) {
 			expands = new ArrayList<Short>();
 		
-			Iterator<MetaseqPolygon.QuadPolygon> it = polygons.getQuads().iterator();
+			Iterator<MQOPolygon.QuadPolygon> it = polygons.getQuads().iterator();
 			while (it.hasNext()) {
 				polygon = it.next();
 				expands.addAll(Arrays.asList(polygon.getIndexes()));

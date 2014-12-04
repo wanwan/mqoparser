@@ -21,4 +21,15 @@ public class MQOHeader {
     public void setVersion(Float version) {
         this.version = version;
     }
+
+
+    @Override
+    public String toString() {
+        StringBuffer str = new StringBuffer();
+        str.append("header: ");
+        str.append(String.format("format: %s ", format));
+        str.append(String.format("version: %f ", version));
+
+        return str.toString();
+    }
 }

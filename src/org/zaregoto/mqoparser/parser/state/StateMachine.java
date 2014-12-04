@@ -1,5 +1,6 @@
 package org.zaregoto.mqoparser.parser.state;
 
+import org.zaregoto.mqoparser.model.MQOData;
 import org.zaregoto.mqoparser.parser.MQOElement;
 import org.zaregoto.mqoparser.parser.exception.StateTransferException;
 import org.zaregoto.mqoparser.util.LogUtil;
@@ -13,10 +14,11 @@ public class StateMachine {
     private State current;
     private Stack<Object> stack;
 
-    private ConcurrentLinkedQueue<MQOElement> inputs = new ConcurrentLinkedQueue<MQOElement>();
+    private MQOData mqodata;
 
     public StateMachine() {
         stack = new Stack<Object>();
+        mqodata = new MQOData();
     }
 
     private class TBL {
@@ -167,4 +169,14 @@ public class StateMachine {
             }
         }
     }
+
+    public MQOData getMqodata() {
+        return mqodata;
+    }
+
+    public void setMqodata(MQOData mqodata) {
+        this.mqodata = mqodata;
+    }
+
+
 }

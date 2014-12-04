@@ -2,15 +2,14 @@ package org.zaregoto.mqoparser.model;
 
 import java.util.ArrayList;
 
-public class MetaseqPolygon {
+public class MQOPolygon {
 
 	private ArrayList<Vertex> vertexes = new ArrayList<Vertex>();
 	private ArrayList<TrianglePolygon> triangles = new ArrayList<TrianglePolygon>();
 	private ArrayList<QuadPolygon> quads = new ArrayList<QuadPolygon>();
 
 	
-	public MetaseqPolygon() {
-		return;
+	public MQOPolygon() {
 	}
 	
 	public ArrayList<Vertex> getVertexes() {
@@ -23,7 +22,6 @@ public class MetaseqPolygon {
 	
 	public void addVertex(Float x, Float y, Float z) {
 		vertexes.add(new Vertex(x, y, z));
-		return;
 	}
 	
 	public void addPolygon(Short[] indexes) {
@@ -33,8 +31,6 @@ public class MetaseqPolygon {
 		else if (indexes.length == 4) {
 			quads.add(new QuadPolygon(indexes));
 		}
-		
-		return;
 	}
 
 	public void setTriangles(ArrayList<TrianglePolygon> triangles) {
@@ -86,7 +82,6 @@ public class MetaseqPolygon {
 		private Short[] indexes;
 		public Polygon(Short[] _indexes) {
 			indexes = _indexes;
-			return;
 		}
 		public Short[] getIndexes() {
 			return indexes;
@@ -101,7 +96,6 @@ public class MetaseqPolygon {
 
 		public TrianglePolygon(Short[] indexes) {
 			super(indexes);
-			return;
 		}
 		
 	}

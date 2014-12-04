@@ -2,8 +2,10 @@ package org.zaregoto.mqoparser;
 
 
 import org.apache.commons.cli.*;
+import org.zaregoto.mqoparser.model.MQOData;
 import org.zaregoto.mqoparser.parser.MQOParser;
 import org.zaregoto.mqoparser.parser.exception.StateTransferException;
+import org.zaregoto.mqoparser.util.LogUtil;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -37,10 +39,14 @@ public class Main {
             System.out.println("filename: " + value);
 
             MQOParser parser = new MQOParser();
+            MQOData data;
             try {
                 parser.open(value);
 
-                parser.parse();
+                data = parser.parse();
+
+                LogUtil.d(data.toString());
+
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {

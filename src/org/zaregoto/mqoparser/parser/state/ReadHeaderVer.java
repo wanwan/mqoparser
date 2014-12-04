@@ -1,5 +1,6 @@
 package org.zaregoto.mqoparser.parser.state;
 
+import org.zaregoto.mqoparser.model.MQOData;
 import org.zaregoto.mqoparser.model.MQOHeader;
 import org.zaregoto.mqoparser.parser.MQOElement;
 
@@ -27,7 +28,9 @@ public class ReadHeaderVer implements State {
                 else {
                     hdr.setVersion(null);
                 }
-                sm.push(hdr);
+                //sm.push(hdr);
+                MQOData mqoData = sm.getMqodata();
+                mqoData.setHeader(hdr);
                 ret = true;
                 break;
             default:

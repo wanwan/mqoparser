@@ -7,7 +7,7 @@ package org.zaregoto.mqoparser.model;
  * Time: 6:10 AM
  * To change this template use File | Settings | File Templates.
  */
-public class MetaseqMaterial {
+public class MQOMaterial {
 
     enum SHADER {
         SHADER_CLASSIC,    // 0
@@ -42,7 +42,7 @@ public class MetaseqMaterial {
     private Double[] projAngle = null;
 
 
-    public MetaseqMaterial() {
+    public MQOMaterial() {
         return;
     }
 

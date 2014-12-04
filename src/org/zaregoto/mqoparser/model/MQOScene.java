@@ -7,7 +7,7 @@ package org.zaregoto.mqoparser.model;
  * Time: 6:11 AM
  * To change this template use File | Settings | File Templates.
  */
-public class MetaseqScene {
+public class MQOScene {
 
     private Double[] pos = null;
     private Double[] lookat = null;
@@ -17,8 +17,7 @@ public class MetaseqScene {
     private Double zoom2 = null;
     private Double[] amb = null;
 
-    public MetaseqScene() {
-        return;
+    public MQOScene() {
     }
 
 

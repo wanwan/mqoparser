@@ -1,6 +1,7 @@
 package org.zaregoto.mqoparser.parser;
 
 
+import org.zaregoto.mqoparser.model.MQOData;
 import org.zaregoto.mqoparser.parser.exception.StateTransferException;
 import org.zaregoto.mqoparser.parser.state.StateMachine;
 
@@ -32,9 +33,10 @@ public class MQOParser {
 
     }
 
-    public void parse() throws IOException, StateTransferException {
+    public MQOData parse() throws IOException, StateTransferException {
 
         MQOElement e;
+        MQOData data;
 
         stateMachine.init();
 
@@ -43,6 +45,9 @@ public class MQOParser {
 
             stateMachine.transfer(e);
         }
+        data = stateMachine.getMqodata();
+
+        return data;
     }
 
 
