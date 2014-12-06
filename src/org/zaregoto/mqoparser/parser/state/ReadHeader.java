@@ -21,7 +21,7 @@ public class ReadHeader implements State {
     public boolean preTransfer(StateMachine sm, MQOElement input) {
 
         MQOHeader hdr = null;
-        boolean ret = false;
+        boolean ret = true;
 
         switch (input) {
             case HEADER_METASEQUOIA:
