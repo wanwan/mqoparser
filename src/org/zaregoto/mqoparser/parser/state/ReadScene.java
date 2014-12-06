@@ -1,8 +1,7 @@
 package org.zaregoto.mqoparser.parser.state;
 
-import org.zaregoto.mqoparser.model.MQOHeader;
 import org.zaregoto.mqoparser.model.MQOScene;
-import org.zaregoto.mqoparser.parser.MQOElement;
+import org.zaregoto.mqoparser.parser.LexicalElement;
 import org.zaregoto.mqoparser.parser.exception.StateTransferException;
 
 public class ReadScene implements State {
@@ -15,12 +14,12 @@ public class ReadScene implements State {
     }
 
     @Override
-    public boolean postTransfer(StateMachine sm, MQOElement input) {
+    public boolean postTransfer(StateMachine sm, LexicalElement input) {
         return true;
     }
 
     @Override
-    public boolean received(StateMachine sm, MQOElement input) throws StateTransferException {
+    public boolean received(StateMachine sm, LexicalElement input) throws StateTransferException {
         return false;
     }
 
@@ -49,17 +48,27 @@ public class ReadScene implements State {
 //        CHUNK_END word: } value: null
 
     @Override
-    public boolean preTransfer(StateMachine sm, MQOElement input) {
+    public boolean preTransfer(StateMachine sm, LexicalElement input) {
 
         MQOScene scene = null;
         boolean ret = true;
 
         switch (input) {
-        case CHUNK_SCENE:
-            scene = new MQOScene();
-            sm.push(scene);
-            ret = true;
-            break;
+            case CHUNK_SCENE:
+                scene = new MQOScene();
+                sm.push(scene);
+                ret = true;
+                break;
+            case CHUNK_BEGIN:
+                break;
+            case BYTE_ARRAY:
+                break;
+            case FLOAT:
+                break;
+            case INT:
+                break;
+            case CHUNK_END:
+                break;
         default:
             break;
         }

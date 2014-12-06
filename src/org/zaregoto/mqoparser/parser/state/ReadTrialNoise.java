@@ -1,7 +1,6 @@
 package org.zaregoto.mqoparser.parser.state;
 
-import org.zaregoto.mqoparser.model.MQOHeader;
-import org.zaregoto.mqoparser.parser.MQOElement;
+import org.zaregoto.mqoparser.parser.LexicalElement;
 import org.zaregoto.mqoparser.parser.exception.StateTransferException;
 
 public class ReadTrialNoise implements State {
@@ -14,17 +13,17 @@ public class ReadTrialNoise implements State {
     }
 
     @Override
-    public boolean postTransfer(StateMachine sm, MQOElement input) {
+    public boolean postTransfer(StateMachine sm, LexicalElement input) {
         return true;
     }
 
     @Override
-    public boolean received(StateMachine sm, MQOElement input) throws StateTransferException {
+    public boolean received(StateMachine sm, LexicalElement input) throws StateTransferException {
         return false;
     }
 
     @Override
-    public boolean preTransfer(StateMachine sm, MQOElement input) throws StateTransferException {
+    public boolean preTransfer(StateMachine sm, LexicalElement input) throws StateTransferException {
 
         boolean ret = false;
 

@@ -32,7 +32,7 @@ public class ParserTest {
     }
 
     @Test
-    public void checkHeader() {
+    public void checkAll() {
 
         String samplefile = "sample/primitive/cube.mqo";
         MQOData data;
@@ -42,6 +42,44 @@ public class ParserTest {
         } catch (StateTransferException e) {
             e.printStackTrace();
             Assert.assertTrue(false);
+            return;
+        } catch (IOException e) {
+            e.printStackTrace();
+            Assert.assertTrue(false);
+            return;
+        }
+
+        if (null != data) {
+            MQOHeader hdr = data.getHeader();
+            if (null != hdr) {
+                if (hdr.getFormat().equals("Text") && hdr.getVersion() == 1.0) {
+                    Assert.assertTrue(true);
+                }
+                else {
+                    Assert.assertTrue(false);
+                }
+            }
+            else {
+                Assert.assertTrue(false);
+            }
+        }
+        else {
+            Assert.assertTrue(false);
+        }
+
+    }
+
+    @Test
+    public void checkHeader() {
+
+        String samplefile = "sample/primitive/cube.mqo";
+        MQOData data;
+
+        try {
+            data = readData(samplefile);
+        } catch (StateTransferException e) {
+            e.printStackTrace();
+            //Assert.assertTrue(false);
             return;
         } catch (IOException e) {
             e.printStackTrace();
@@ -78,11 +116,11 @@ public class ParserTest {
         try {
             data = readData(samplefile);
         } catch (StateTransferException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             Assert.assertTrue(true);
             return;
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             Assert.assertTrue(false);
             return;
         }
@@ -103,7 +141,7 @@ public class ParserTest {
             data = readData(samplefile);
         } catch (StateTransferException e) {
             e.printStackTrace();
-            Assert.assertTrue(false);
+            //Assert.assertTrue(false);
             return;
         } catch (IOException e) {
             e.printStackTrace();

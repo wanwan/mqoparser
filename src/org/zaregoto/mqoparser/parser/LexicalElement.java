@@ -5,7 +5,7 @@ import org.zaregoto.mqoparser.util.LogUtil;
 /**
 * Created by waka on 14/12/02.
 */
-public enum MQOElement {
+public enum LexicalElement {
     NOP(""),
     HEADER_METASEQUOIA("Metasequoia"),
     HEADER_KEYWORD_DOCUMENT("Document"),
@@ -14,6 +14,13 @@ public enum MQOElement {
     CHUNK_TRIAL_NOISE("TrialNoise"),
     CHUNK_INCLUDE_XML("IncludeXml"),
     CHUNK_SCENE("Scene"),
+    CHUNK_SCENE_POS("pos"),
+    CHUNK_SCENE_LOOKAT("lookat"),
+    CHUNK_SCENE_HEAD("head"),
+    CHUNK_SCENE_PICH("pich"),
+    CHUNK_SCENE_ORTHO("ortho"),
+    CHUNK_SCENE_ZOOM2("zoom2"),
+    CHUNK_SCENE_AMB("amb"),
     CHUNK_BACKIMAGE("BackImage"),
     CHUNK_MATERIAL("Material"),
     CHUNK_OBJECT("Object"),
@@ -35,12 +42,13 @@ public enum MQOElement {
     STRING(null),
     INT(null),
     FLOAT(null),
-    BYTE_ARRAY(null);
+    BYTE_ARRAY(null),
+    ENTER_CODE(null);
 
     String word;
     String value;
 
-    MQOElement(String word) {
+    LexicalElement(String word) {
         this.word = word;
     }
 

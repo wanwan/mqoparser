@@ -35,7 +35,7 @@ public class MQOParser {
 
     public MQOData parse() throws IOException, StateTransferException {
 
-        MQOElement e;
+        LexicalElement e;
         MQOData data;
 
         stateMachine.init();

@@ -1,5 +1,7 @@
 package org.zaregoto.mqoparser.parser;
 
+import org.zaregoto.mqoparser.util.LogUtil;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,6 +13,7 @@ public class LexicalAnalyzer {
 
     enum LEXER_STS {
         CURRENT_NOT_DEFINED,
+        CURRENT_SEARCH_ENTER_END,
         CURRENT_IN_WORD,;
     }
 
@@ -20,9 +23,9 @@ public class LexicalAnalyzer {
         this.br = new BufferedReader(new InputStreamReader(is));
     }
 
-    public MQOElement next() throws IOException {
+    public LexicalElement next() throws IOException {
 
-        MQOElement next = null;
+        LexicalElement next = null;
         int c;
         StringBuffer buf = null;
         LEXER_STS sts = LEXER_STS.CURRENT_NOT_DEFINED;
@@ -61,6 +64,11 @@ public class LexicalAnalyzer {
                             next = createMQOElement(buf);
                             break determine_element;
                         }
+                        else if ('\r' == c) {
+                            sts = LEXER_STS.CURRENT_SEARCH_ENTER_END;
+                            buf = new StringBuffer();
+                            buf.append(c);
+                        }
                         else {
                             sts = LEXER_STS.CURRENT_IN_WORD;
                             buf = new StringBuffer();
@@ -76,6 +84,15 @@ public class LexicalAnalyzer {
                             break determine_element;
                         }
                         break;
+                    case CURRENT_SEARCH_ENTER_END:
+                        if ('\n' == c) {
+                            buf.append(c);
+                            break determine_element;
+                        }
+                        else {
+                            LogUtil.d("lexical analyzer occur fatal error: may be enter code broken");
+                        }
+                        break;
                     default:
                         break;
                 }
@@ -84,7 +101,11 @@ public class LexicalAnalyzer {
             }
         }
 
-        if (LEXER_STS.CURRENT_IN_WORD == sts) {
+        if (LEXER_STS.CURRENT_SEARCH_ENTER_END == sts) {
+            next = LexicalElement.ENTER_CODE;
+            next.setValue(buf.toString());
+        }
+        else if (LEXER_STS.CURRENT_IN_WORD == sts) {
             next = createMQOElement(buf);
         }
 
@@ -92,13 +113,13 @@ public class LexicalAnalyzer {
     }
 
 
-    private MQOElement createMQOElement(StringBuffer buf) {
+    private LexicalElement createMQOElement(StringBuffer buf) {
 
         String word = buf.toString().trim();
-        MQOElement element = null;
+        LexicalElement element = null;
 
         search:
-        for (MQOElement e : MQOElement.values()) {
+        for (LexicalElement e : LexicalElement.values()) {
             if (e.equals(word)) {
                 element = e;
                 break search;
@@ -110,7 +131,7 @@ public class LexicalAnalyzer {
             Pattern p = Pattern.compile(regex);
             Matcher m = p.matcher(word);
             if (m.find()) {
-                element = MQOElement.STRING;
+                element = LexicalElement.STRING;
                 element.setValue(m.group(1));
             }
         }
@@ -120,7 +141,7 @@ public class LexicalAnalyzer {
             Pattern p = Pattern.compile(regex);
             Matcher m = p.matcher(word);
             if (m.find()) {
-                element = MQOElement.INT;
+                element = LexicalElement.INT;
                 element.setValue(word);
             }
         }
@@ -130,13 +151,13 @@ public class LexicalAnalyzer {
             Pattern p = Pattern.compile(regex);
             Matcher m = p.matcher(word);
             if (m.find()) {
-                element = MQOElement.FLOAT;
+                element = LexicalElement.FLOAT;
                 element.setValue(word);
             }
         }
 
         if (null == element) {
-            element = MQOElement.BYTE_ARRAY;
+            element = LexicalElement.BYTE_ARRAY;
             element.setValue(word);
         }
 
@@ -147,7 +168,7 @@ public class LexicalAnalyzer {
 
         boolean ret = false;
 
-        if (isSeparater(c)) {
+        if (isSeparater(c) || isEnter(c)) {
             ret = false;
         }
         else {
@@ -162,8 +183,7 @@ public class LexicalAnalyzer {
 
         switch (c) {
             case ' ':
-            case '\n':
-            case '\r':
+            case '\t':
                 ret = true;
                 break;
             default:
@@ -171,6 +191,22 @@ public class LexicalAnalyzer {
         }
         return ret;
     }
+
+    private boolean isEnter(int c) {
+        boolean ret = false;
+
+        switch (c) {
+            case '\n':
+            case '\r':
+                ret = true;
+                break;
+            default:
+                break;
+        }
+
+        return ret;
+    }
+
 
     private boolean isChunkSeparaterIn(int c) {
 
