@@ -1,6 +1,7 @@
 package org.zaregoto.mqoparser.parser.state;
 
 import org.zaregoto.mqoparser.parser.MQOElement;
+import org.zaregoto.mqoparser.parser.exception.StateTransferException;
 
 public class Idle implements State {
 
@@ -14,6 +15,11 @@ public class Idle implements State {
     @Override
     public boolean postTransfer(StateMachine sm, MQOElement input) {
         return true;
+    }
+
+    @Override
+    public boolean received(StateMachine sm, MQOElement input) throws StateTransferException {
+        return false;
     }
 
     @Override

@@ -19,6 +19,11 @@ public class ReadTrialNoise implements State {
     }
 
     @Override
+    public boolean received(StateMachine sm, MQOElement input) throws StateTransferException {
+        return false;
+    }
+
+    @Override
     public boolean preTransfer(StateMachine sm, MQOElement input) throws StateTransferException {
 
         boolean ret = false;

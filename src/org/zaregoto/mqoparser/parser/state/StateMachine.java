@@ -40,7 +40,7 @@ public class StateMachine {
             new TBL(Idle.class,       MQOElement.HEADER_KEYWORD_VER,              Idle.class                ),
             new TBL(Idle.class,       MQOElement.CHUNK_TRIAL_NOISE,               ReadTrialNoise.class      ),
             new TBL(Idle.class,       MQOElement.CHUNK_INCLUDE_XML,               ReadIncludeXml.class      ),
-            new TBL(Idle.class,       MQOElement.CHUNK_SCENE,                     Idle.class                ),
+            new TBL(Idle.class,       MQOElement.CHUNK_SCENE,                     ReadScene.class                ),
             new TBL(Idle.class,       MQOElement.CHUNK_BACKIMAGE,                 Idle.class                ),
             new TBL(Idle.class,       MQOElement.CHUNK_MATERIAL,                  Idle.class                ),
             new TBL(Idle.class,       MQOElement.CHUNK_OBJECT,                    Idle.class                ),
@@ -188,6 +188,37 @@ public class StateMachine {
             new TBL(ReadIncludeXml.class,       MQOElement.INT,                             ReadIncludeXml.class                ),
             new TBL(ReadIncludeXml.class,       MQOElement.FLOAT,                           ReadIncludeXml.class                ),
             new TBL(ReadIncludeXml.class,       MQOElement.BYTE_ARRAY,                      ReadIncludeXml.class                ),
+
+            new TBL(ReadScene.class,       MQOElement.HEADER_METASEQUOIA,              ReadScene.class                ),
+            new TBL(ReadScene.class,       MQOElement.HEADER_KEYWORD_DOCUMENT,         ReadScene.class                ),
+            new TBL(ReadScene.class,       MQOElement.HEADER_FORMAT,                   ReadScene.class                ),
+            new TBL(ReadScene.class,       MQOElement.HEADER_KEYWORD_VER,              ReadScene.class                ),
+            new TBL(ReadScene.class,       MQOElement.CHUNK_TRIAL_NOISE,               ReadScene.class                ),
+            new TBL(ReadScene.class,       MQOElement.CHUNK_INCLUDE_XML,               ReadScene.class                ),
+            new TBL(ReadScene.class,       MQOElement.CHUNK_SCENE,                     ReadScene.class                ),
+            new TBL(ReadScene.class,       MQOElement.CHUNK_BACKIMAGE,                 ReadScene.class                ),
+            new TBL(ReadScene.class,       MQOElement.CHUNK_MATERIAL,                  ReadScene.class                ),
+            new TBL(ReadScene.class,       MQOElement.CHUNK_OBJECT,                    ReadScene.class                ),
+            new TBL(ReadScene.class,       MQOElement.CHUNK_OBJECT_VERTEX,             ReadScene.class                ),
+            new TBL(ReadScene.class,       MQOElement.CHUNK_OBJECT_VERTEX_ATTR,        ReadScene.class                ),
+            new TBL(ReadScene.class,       MQOElement.CHUNK_OBJECT_VERTEX_ATTR_UID,    ReadScene.class                ),
+            new TBL(ReadScene.class,       MQOElement.CHUNK_OBJECT_VERTEX_ATTR_WEIT,   ReadScene.class                ),
+            new TBL(ReadScene.class,       MQOElement.CHUNK_OBJECT_VERTEX_ATTR_COLOR,  ReadScene.class                ),
+            new TBL(ReadScene.class,       MQOElement.CHUNK_OBJECT_BVERTEX,            ReadScene.class                ),
+            new TBL(ReadScene.class,       MQOElement.CHUNK_OBJECT_BVERTEX,            ReadScene.class                ),
+            new TBL(ReadScene.class,       MQOElement.CHUNK_OBJECT_BVERTEX_VECTOR,     ReadScene.class                ),
+            new TBL(ReadScene.class,       MQOElement.CHUNK_OBJECT_BVERTEX_WEIT,       ReadScene.class                ),
+            new TBL(ReadScene.class,       MQOElement.CHUNK_OBJECT_BVERTEX_COLOR,      ReadScene.class                ),
+            new TBL(ReadScene.class,       MQOElement.CHUNK_OBJECT_FACE,               ReadScene.class                ),
+            new TBL(ReadScene.class,       MQOElement.CHUNK_BLOB,                      ReadScene.class                ),
+            new TBL(ReadScene.class,       MQOElement.CHUNK_BEGIN,                     ReadScene.class                ),
+            new TBL(ReadScene.class,       MQOElement.CHUNK_END,                       Idle.class                     ),
+            new TBL(ReadScene.class,       MQOElement.INDEX_ATTR_BEGIN,                ReadScene.class                ),
+            new TBL(ReadScene.class,       MQOElement.INDEX_ATTR_END,                  ReadScene.class                ),
+            new TBL(ReadScene.class,       MQOElement.STRING,                          ReadScene.class                ),
+            new TBL(ReadScene.class,       MQOElement.INT,                             ReadScene.class                ),
+            new TBL(ReadScene.class,       MQOElement.FLOAT,                           ReadScene.class                ),
+            new TBL(ReadScene.class,       MQOElement.BYTE_ARRAY,                      ReadScene.class                ),            
             
 
             null
@@ -248,7 +279,7 @@ public class StateMachine {
                             throw new StateTransferException("state transfer failed, current status postTransfer() routine return error");
                         }
                     } else {
-                        current.preTransfer(this, input);
+                        current.received(this, input);
                         break;
                     }
                 }

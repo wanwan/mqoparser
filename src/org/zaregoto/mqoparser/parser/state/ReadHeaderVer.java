@@ -3,6 +3,7 @@ package org.zaregoto.mqoparser.parser.state;
 import org.zaregoto.mqoparser.model.MQOData;
 import org.zaregoto.mqoparser.model.MQOHeader;
 import org.zaregoto.mqoparser.parser.MQOElement;
+import org.zaregoto.mqoparser.parser.exception.StateTransferException;
 
 public class ReadHeaderVer implements State {
 
@@ -39,6 +40,11 @@ public class ReadHeaderVer implements State {
         }
 
         return ret;
+    }
+
+    @Override
+    public boolean received(StateMachine sm, MQOElement input) throws StateTransferException {
+        return false;
     }
 
     @Override

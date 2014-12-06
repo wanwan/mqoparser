@@ -9,72 +9,228 @@ package org.zaregoto.mqoparser.model;
  */
 public class MQOScene {
 
-    private Double[] pos = null;
-    private Double[] lookat = null;
-    private Double head = null;
-    private Double pich = null;
-    private Integer ortho = null;
-    private Double zoom2 = null;
-    private Double[] amb = null;
+//    Scene {
+//        pos 0.0000 0.0000 1500.0000
+//        lookat 0.0000 0.0000 0.0000
+//        head -0.5236
+//        pich 0.5236
+//        ortho 0
+//        zoom2 5.0000
+//        amb 0.250 0.250 0.250
+//    }
+
+    private Pos pos = null;
+    private LookAt lookat = null;
+    private Head head = null;
+    private Pitch pich = null;
+    private Ortho ortho = null;
+    private Zoom2 zoom2 = null;
+    private Amb amb = null;
 
     public MQOScene() {
     }
 
 
-    public Double[] getPos() {
+    public Pos getPos() {
         return pos;
     }
 
-    public void setPos(Double[] pos) {
+    public void setPos(Pos pos) {
         this.pos = pos;
     }
 
-    public Double[] getLookat() {
+    public LookAt getLookat() {
         return lookat;
     }
 
-    public void setLookat(Double[] lookat) {
+    public void setLookat(LookAt lookat) {
         this.lookat = lookat;
     }
 
-    public Double getHead() {
+    public Head getHead() {
         return head;
     }
 
-    public void setHead(Double head) {
+    public void setHead(Head head) {
         this.head = head;
     }
 
-    public Double getPich() {
+    public Pitch getPich() {
         return pich;
     }
 
-    public void setPich(Double pich) {
+    public void setPich(Pitch pich) {
         this.pich = pich;
     }
 
-    public Integer getOrtho() {
+    public Ortho getOrtho() {
         return ortho;
     }
 
-    public void setOrtho(Integer ortho) {
+    public void setOrtho(Ortho ortho) {
         this.ortho = ortho;
     }
 
-    public Double getZoom2() {
+    public Zoom2 getZoom2() {
         return zoom2;
     }
 
-    public void setZoom2(Double zoom2) {
+    public void setZoom2(Zoom2 zoom2) {
         this.zoom2 = zoom2;
     }
 
-    public Double[] getAmb() {
+    public Amb getAmb() {
         return amb;
     }
 
-    public void setAmb(Double[] amb) {
+    public void setAmb(Amb amb) {
         this.amb = amb;
     }
 
+    class Pos {
+
+        private float x;
+        private float y;
+        private float z;
+
+        public float getX() {
+            return x;
+        }
+
+        public void setX(float x) {
+            this.x = x;
+        }
+
+        public float getY() {
+            return y;
+        }
+
+        public void setY(float y) {
+            this.y = y;
+        }
+
+        public float getZ() {
+            return z;
+        }
+
+        public void setZ(float z) {
+            this.z = z;
+        }
+    }
+
+    class LookAt {
+
+        private float x;
+        private float y;
+        private float z;
+
+        public float getX() {
+            return x;
+        }
+
+        public void setX(float x) {
+            this.x = x;
+        }
+
+        public float getY() {
+            return y;
+        }
+
+        public void setY(float y) {
+            this.y = y;
+        }
+
+        public float getZ() {
+            return z;
+        }
+
+        public void setZ(float z) {
+            this.z = z;
+        }
+    }
+
+
+    class Head {
+        private float value;
+
+        public float getValue() {
+            return value;
+        }
+
+        public void setValue(float value) {
+            this.value = value;
+        }
+    }
+
+
+    class Pitch {
+        private float value;
+
+        public float getValue() {
+            return value;
+        }
+
+        public void setValue(float value) {
+            this.value = value;
+        }
+    }
+
+    class Ortho {
+        private float value;
+
+        public float getValue() {
+            return value;
+        }
+
+        public void setValue(float value) {
+            this.value = value;
+        }
+    }
+
+    class Zoom2 {
+        private float value;
+
+        public float getValue() {
+            return value;
+        }
+
+        public void setValue(float value) {
+            this.value = value;
+        }
+    }
+
+
+    class Amb {
+
+        private float x;
+        private float y;
+        private float z;
+
+        public float getX() {
+            return x;
+        }
+
+        public void setX(float x) {
+            this.x = x;
+        }
+
+        public float getY() {
+            return y;
+        }
+
+        public void setY(float y) {
+            this.y = y;
+        }
+
+        public float getZ() {
+            return z;
+        }
+
+        public void setZ(float z) {
+            this.z = z;
+        }
+    }
+
+    class Unknown {
+    }
 }

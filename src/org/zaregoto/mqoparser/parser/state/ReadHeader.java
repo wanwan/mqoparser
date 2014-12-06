@@ -2,6 +2,7 @@ package org.zaregoto.mqoparser.parser.state;
 
 import org.zaregoto.mqoparser.model.MQOHeader;
 import org.zaregoto.mqoparser.parser.MQOElement;
+import org.zaregoto.mqoparser.parser.exception.StateTransferException;
 
 public class ReadHeader implements State {
 
@@ -15,6 +16,11 @@ public class ReadHeader implements State {
     @Override
     public boolean postTransfer(StateMachine sm, MQOElement input) {
         return true;
+    }
+
+    @Override
+    public boolean received(StateMachine sm, MQOElement input) throws StateTransferException {
+        return false;
     }
 
     @Override
