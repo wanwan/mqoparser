@@ -1,3 +1,5 @@
 
 * 読み取り構造の終端を BYTE_ARRAY 等にしているものを ENTER_CODE にするように修正する
 * MQOScene に toString を実装する
+
+* MQOBackImage はファイルのフォーマットが不明なのと, 描画上はポリゴン的に無意味なので現状スキップしている.

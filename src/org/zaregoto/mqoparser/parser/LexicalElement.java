@@ -2,9 +2,6 @@ package org.zaregoto.mqoparser.parser;
 
 import org.zaregoto.mqoparser.util.LogUtil;
 
-/**
-* Created by waka on 14/12/02.
-*/
 public enum LexicalElement {
     NOP(""),
     HEADER_METASEQUOIA("Metasequoia"),

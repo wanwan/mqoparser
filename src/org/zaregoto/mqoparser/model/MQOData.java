@@ -14,7 +14,7 @@ public class MQOData {
     private ArrayList<MQOMaterial> materials = null;
     private ArrayList<MQOObject> objects = null;
 
-
+    private MQOBackImage backImage = null;
 
 
     public MQOData() {
@@ -42,7 +42,6 @@ public class MQOData {
         return includeXmls;
     }
 
-
     public MQOScene getScene() {
         return scene;
     }
@@ -59,13 +58,22 @@ public class MQOData {
         return objects;
     }
 
-	public void addMaterials(ArrayList<MQOMaterial> materialDatas) {
+    public MQOBackImage getBackImage() {
+        return backImage;
+    }
+
+    public void setBackImage(MQOBackImage backImage) {
+        this.backImage = backImage;
+    }
+
+
+
+    public void addMaterials(ArrayList<MQOMaterial> materialDatas) {
 		if (null != materials && null != materialDatas) {
 			materials.addAll(materialDatas);
 		}
 		return;
 	}
-
 
 	public void addObject(MQOObject objectData) {
 		if (null != objects && null != objectData) {

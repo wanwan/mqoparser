@@ -1,10 +1,7 @@
 package org.zaregoto.mqoparser.test;
 
 import junit.framework.TestCase;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import org.zaregoto.mqoparser.model.MQOData;
 import org.zaregoto.mqoparser.model.MQOHeader;
 import org.zaregoto.mqoparser.model.MQOIncludeXml;
@@ -269,6 +266,11 @@ public class ParserTest {
         }
     }
 
+
+    @Test
+    @Ignore("not implement yet, cause of unknown specification")
+    public void checkBackImage() {
+    }
 
 
     private MQOData readData(String filename) throws IOException, StateTransferException {
