@@ -8,13 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 
-/**
- * Created by IntelliJ IDEA.
- * User: waka
- * Date: 5/15/11
- * Time: 6:10 AM
- * To change this template use File | Settings | File Templates.
- */
+
 public class MQOObject {
 
    enum SHADING {

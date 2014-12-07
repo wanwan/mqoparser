@@ -1,18 +1,12 @@
 package org.zaregoto.mqoparser.model;
 
-/**
- * Created by IntelliJ IDEA.
- * User: waka
- * Date: 5/15/11
- * Time: 6:11 AM
- * To change this template use File | Settings | File Templates.
- */
+
 public class MQOScene {
 
     private Pos pos = null;
     private LookAt lookat = null;
     private Head head = null;
-    private Pitch pich = null;
+    private Pich pich = null;
     private Ortho ortho = null;
     private Zoom2 zoom2 = null;
     private Amb amb = null;
@@ -44,11 +38,11 @@ public class MQOScene {
         this.head = head;
     }
 
-    public Pitch getPich() {
+    public Pich getPich() {
         return pich;
     }
 
-    public void setPich(Pitch pich) {
+    public void setPich(Pich pich) {
         this.pich = pich;
     }
 
@@ -153,7 +147,7 @@ public class MQOScene {
     }
 
 
-    public static class Pitch {
+    public static class Pich {
 
         private float value;
 

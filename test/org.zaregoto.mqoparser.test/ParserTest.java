@@ -196,12 +196,69 @@ public class ParserTest {
             MQOScene scene = data.getScene();
             if (null != scene) {
                 MQOScene.Pos pos = scene.getPos();
-                if (null != pos && 0.0 == pos.getX() && 0.0 == pos.getY() && 1500.0 == pos.getZ()) {
+                if (null != pos && 0.0f == pos.getX() && 0.0f == pos.getY() && 1500.0f == pos.getZ()) {
                     Assert.assertTrue(true);
                 }
                 else {
                     Assert.assertTrue(false);
                 }
+                pos = null;
+
+                MQOScene.LookAt lookAt = scene.getLookat();
+                if (null != lookAt && 0.0f == lookAt.getX() && 0.0f == lookAt.getY() && 0.0f == lookAt.getZ()) {
+                    Assert.assertTrue(true);
+                }
+                else {
+                    Assert.assertTrue(false);
+                }
+                lookAt = null;
+
+                MQOScene.Head head = scene.getHead();
+                if (null != head && -0.5236f == head.getValue()) {
+                    Assert.assertTrue(true);
+                }
+                else {
+                    Assert.assertTrue(false);
+                }
+                head = null;
+
+                MQOScene.Pich pich = scene.getPich();
+                if (null != pich && 0.5236f == pich.getValue()) {
+                    Assert.assertTrue(true);
+                }
+                else {
+                    Assert.assertTrue(false);
+                }
+                pich = null;
+
+                MQOScene.Ortho ortho = scene.getOrtho();
+                if (null != ortho && 0 == ortho.getValue()) {
+                    Assert.assertTrue(true);
+                }
+                else {
+                    Assert.assertTrue(false);
+                }
+                ortho = null;
+
+                MQOScene.Zoom2 zoom2 = scene.getZoom2();
+                if (null != zoom2 && 5.0f == zoom2.getValue()) {
+                    Assert.assertTrue(true);
+                }
+                else {
+                    Assert.assertTrue(false);
+                }
+                zoom2 = null;
+
+
+                MQOScene.Amb amb = scene.getAmb();
+                if (null != amb && 0.25f == amb.getX() && 0.25f == amb.getY() && 0.25f == amb.getZ()) {
+                    Assert.assertTrue(true);
+                }
+                else {
+                    Assert.assertTrue(false);
+                }
+                amb = null;
+
             }
             else {
                 Assert.assertTrue(false);

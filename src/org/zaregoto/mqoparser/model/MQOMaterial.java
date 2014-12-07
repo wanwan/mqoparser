@@ -1,12 +1,6 @@
 package org.zaregoto.mqoparser.model;
 
-/**
- * Created by IntelliJ IDEA.
- * User: waka
- * Date: 5/15/11
- * Time: 6:10 AM
- * To change this template use File | Settings | File Templates.
- */
+
 public class MQOMaterial {
 
     enum SHADER {

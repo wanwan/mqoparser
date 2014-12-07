@@ -1,2 +1,3 @@
 
 * 読み取り構造の終端を BYTE_ARRAY 等にしているものを ENTER_CODE にするように修正する
+* MQOScene に toString を実装する
