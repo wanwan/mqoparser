@@ -8,11 +8,9 @@ import org.zaregoto.mqoparser.parser.exception.StateTransferException;
 
 public class ReadIncludeXml implements State {
 
-    private final String stateName = "ReadIncludeXml";
-
     @Override
     public String getStateName() {
-        return stateName;
+        return this.getClass().getName();
     }
 
     @Override

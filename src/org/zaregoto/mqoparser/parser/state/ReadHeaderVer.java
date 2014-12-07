@@ -7,11 +7,9 @@ import org.zaregoto.mqoparser.parser.exception.StateTransferException;
 
 public class ReadHeaderVer implements State {
 
-    private final String stateName = "ReadHeaderVer";
-
     @Override
     public String getStateName() {
-        return stateName;
+        return this.getClass().getName();
     }
 
     @Override

@@ -9,16 +9,6 @@ package org.zaregoto.mqoparser.model;
  */
 public class MQOScene {
 
-//    Scene {
-//        pos 0.0000 0.0000 1500.0000
-//        lookat 0.0000 0.0000 0.0000
-//        head -0.5236
-//        pich 0.5236
-//        ortho 0
-//        zoom2 5.0000
-//        amb 0.250 0.250 0.250
-//    }
-
     private Pos pos = null;
     private LookAt lookat = null;
     private Head head = null;
@@ -29,7 +19,6 @@ public class MQOScene {
 
     public MQOScene() {
     }
-
 
     public Pos getPos() {
         return pos;
@@ -87,7 +76,7 @@ public class MQOScene {
         this.amb = amb;
     }
 
-    class Pos {
+    public static class Pos {
 
         private float x;
         private float y;
@@ -118,7 +107,7 @@ public class MQOScene {
         }
     }
 
-    class LookAt {
+    public static class LookAt {
 
         private float x;
         private float y;
@@ -150,7 +139,8 @@ public class MQOScene {
     }
 
 
-    class Head {
+    public static class Head {
+
         private float value;
 
         public float getValue() {
@@ -163,7 +153,8 @@ public class MQOScene {
     }
 
 
-    class Pitch {
+    public static class Pitch {
+
         private float value;
 
         public float getValue() {
@@ -175,7 +166,8 @@ public class MQOScene {
         }
     }
 
-    class Ortho {
+    public static class Ortho {
+
         private float value;
 
         public float getValue() {
@@ -187,7 +179,8 @@ public class MQOScene {
         }
     }
 
-    class Zoom2 {
+    public static class Zoom2 {
+
         private float value;
 
         public float getValue() {
@@ -199,8 +192,7 @@ public class MQOScene {
         }
     }
 
-
-    class Amb {
+    public static class Amb {
 
         private float x;
         private float y;
@@ -229,8 +221,5 @@ public class MQOScene {
         public void setZ(float z) {
             this.z = z;
         }
-    }
-
-    class Unknown {
     }
 }

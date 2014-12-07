@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.zaregoto.mqoparser.model.MQOData;
 import org.zaregoto.mqoparser.model.MQOHeader;
 import org.zaregoto.mqoparser.model.MQOIncludeXml;
+import org.zaregoto.mqoparser.model.MQOScene;
 import org.zaregoto.mqoparser.parser.MQOParser;
 import org.zaregoto.mqoparser.parser.exception.StateTransferException;
 import org.zaregoto.mqoparser.util.LogUtil;
@@ -161,6 +162,45 @@ public class ParserTest {
                     else {
                         Assert.assertTrue(false);
                     }
+                }
+            }
+            else {
+                Assert.assertTrue(false);
+            }
+        }
+        else {
+            Assert.assertTrue(false);
+        }
+    }
+
+
+    @Test
+    public void checkScene() {
+
+        String samplefile = "sample/primitive/cube.mqo";
+        MQOData data;
+
+        try {
+            data = readData(samplefile);
+        } catch (StateTransferException e) {
+            e.printStackTrace();
+            //Assert.assertTrue(false);
+            return;
+        } catch (IOException e) {
+            e.printStackTrace();
+            Assert.assertTrue(false);
+            return;
+        }
+
+        if (null != data) {
+            MQOScene scene = data.getScene();
+            if (null != scene) {
+                MQOScene.Pos pos = scene.getPos();
+                if (null != pos && 0.0 == pos.getX() && 0.0 == pos.getY() && 1500.0 == pos.getZ()) {
+                    Assert.assertTrue(true);
+                }
+                else {
+                    Assert.assertTrue(false);
                 }
             }
             else {

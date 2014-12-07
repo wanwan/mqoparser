@@ -10,7 +10,7 @@ public class ReadSceneOrtho implements State {
 
     @Override
     public String getStateName() {
-        return null;
+        return this.getClass().getName();
     }
 
     @Override

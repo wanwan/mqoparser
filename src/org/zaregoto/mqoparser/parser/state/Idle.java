@@ -5,11 +5,9 @@ import org.zaregoto.mqoparser.parser.exception.StateTransferException;
 
 public class Idle implements State {
 
-    private final String stateName = "Init";
-
     @Override
     public String getStateName() {
-        return stateName;
+        return this.getClass().getName();
     }
 
     @Override

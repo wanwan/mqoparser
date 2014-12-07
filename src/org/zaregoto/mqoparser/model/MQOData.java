@@ -23,7 +23,6 @@ public class MQOData {
 
         includeXmls = new ArrayList<MQOIncludeXml>();
 
-        scene = new MQOScene();
         materials = new ArrayList<MQOMaterial>();
         objects = new ArrayList<MQOObject>();
 

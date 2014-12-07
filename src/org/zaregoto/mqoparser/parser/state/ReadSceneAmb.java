@@ -7,9 +7,10 @@ import org.zaregoto.mqoparser.parser.exception.StateTransferException;
  * Created by waka on 14/12/07.
  */
 public class ReadSceneAmb implements State {
+
     @Override
     public String getStateName() {
-        return null;
+        return this.getClass().getName();
     }
 
     @Override

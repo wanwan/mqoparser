@@ -5,11 +5,9 @@ import org.zaregoto.mqoparser.parser.exception.StateTransferException;
 
 public class ReadTrialNoise implements State {
 
-    private final String stateName = "ReadTrialNoise";
-
     @Override
     public String getStateName() {
-        return stateName;
+        return this.getClass().getName();
     }
 
     @Override

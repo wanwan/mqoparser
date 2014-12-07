@@ -5,9 +5,10 @@ import org.zaregoto.mqoparser.parser.exception.StateTransferException;
 
 
 public class ReadSceneLookat implements State {
+
     @Override
     public String getStateName() {
-        return null;
+        return this.getClass().getName();
     }
 
     @Override
