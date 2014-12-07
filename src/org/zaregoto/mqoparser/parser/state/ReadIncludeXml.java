@@ -34,18 +34,16 @@ public class ReadIncludeXml implements State {
 
     @Override
     public boolean received(StateMachine sm, LexicalElement input) throws StateTransferException {
-        return false;
+        return true;
     }
 
     @Override
     public boolean preTransfer(StateMachine sm, LexicalElement input) {
 
-        MQOHeader hdr = null;
         boolean ret = true;
 
         switch (input) {
             case CHUNK_INCLUDE_XML:
-                ret = true;
                 break;
             default:
                 break;

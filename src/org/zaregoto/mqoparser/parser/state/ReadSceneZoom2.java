@@ -7,7 +7,6 @@ import org.zaregoto.mqoparser.parser.exception.StateTransferException;
 
 public class ReadSceneZoom2 implements State {
 
-
     private MQOScene.Zoom2 zoom2;
 
     @Override
@@ -18,7 +17,6 @@ public class ReadSceneZoom2 implements State {
     @Override
     public boolean preTransfer(StateMachine sm, LexicalElement input) throws StateTransferException {
 
-        MQOScene scene = null;
         boolean ret = true;
 
         switch (input) {

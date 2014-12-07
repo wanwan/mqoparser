@@ -27,37 +27,13 @@ public class ReadScene implements State {
                 break;
         }
 
-        return true;
+        return ret;
     }
 
     @Override
     public boolean received(StateMachine sm, LexicalElement input) throws StateTransferException {
-        return false;
+        return true;
     }
-
-//    CHUNK_SCENE word: Scene value: null
-//    CHUNK_BEGIN word: { value: null
-//        BYTE_ARRAY word: null value: pos
-//        FLOAT word: null value: 0.0000
-//        FLOAT word: null value: 0.0000
-//        FLOAT word: null value: 1500.0000
-//        BYTE_ARRAY word: null value: lookat
-//        FLOAT word: null value: 0.0000
-//        FLOAT word: null value: 0.0000
-//        FLOAT word: null value: 0.0000
-//        BYTE_ARRAY word: null value: head
-//        FLOAT word: null value: -0.5236
-//        BYTE_ARRAY word: null value: pich
-//        FLOAT word: null value: 0.5236
-//        BYTE_ARRAY word: null value: ortho
-//        INT word: null value: 0
-//        BYTE_ARRAY word: null value: zoom2
-//        FLOAT word: null value: 5.0000
-//        BYTE_ARRAY word: null value: amb
-//        FLOAT word: null value: 0.250
-//        FLOAT word: null value: 0.250
-//        FLOAT word: null value: 0.250
-//        CHUNK_END word: } value: null
 
     @Override
     public boolean preTransfer(StateMachine sm, LexicalElement input) {
@@ -69,7 +45,6 @@ public class ReadScene implements State {
             case CHUNK_SCENE:
                 scene = new MQOScene();
                 sm.push(scene);
-                ret = true;
                 break;
             case CHUNK_BEGIN:
                 break;

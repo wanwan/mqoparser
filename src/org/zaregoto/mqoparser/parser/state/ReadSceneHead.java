@@ -17,7 +17,6 @@ public class ReadSceneHead implements State {
     @Override
     public boolean preTransfer(StateMachine sm, LexicalElement input) throws StateTransferException {
 
-        MQOScene scene = null;
         boolean ret = true;
 
         switch (input) {

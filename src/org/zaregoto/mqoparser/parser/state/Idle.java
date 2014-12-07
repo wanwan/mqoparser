@@ -17,7 +17,7 @@ public class Idle implements State {
 
     @Override
     public boolean received(StateMachine sm, LexicalElement input) throws StateTransferException {
-        return false;
+        return true;
     }
 
     @Override

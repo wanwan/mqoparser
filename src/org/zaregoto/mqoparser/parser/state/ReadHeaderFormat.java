@@ -14,7 +14,7 @@ public class ReadHeaderFormat implements State {
     @Override
     public boolean postTransfer(StateMachine sm, LexicalElement input) {
 
-        MQOHeader hdr = null;
+        MQOHeader hdr;
         boolean ret = false;
 
         switch (input) {
@@ -34,7 +34,7 @@ public class ReadHeaderFormat implements State {
 
     @Override
     public boolean received(StateMachine sm, LexicalElement input) throws StateTransferException {
-        return false;
+        return true;
     }
 
     @Override

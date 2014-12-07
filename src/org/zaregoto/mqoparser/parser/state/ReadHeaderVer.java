@@ -15,25 +15,22 @@ public class ReadHeaderVer implements State {
     @Override
     public boolean postTransfer(StateMachine sm, LexicalElement input) {
 
-        MQOHeader hdr = null;
+        MQOHeader hdr;
         boolean ret = true;
 
         switch (input) {
             case FLOAT:
                 hdr = (MQOHeader)sm.pop();
-                if (null != input && null != input.getValue()) {
-                    hdr.setVersion(new Float(input.getValue()));
+                if (null != input.getValue()) {
+                    hdr.setVersion(Float.valueOf(input.getValue()));
                 }
                 else {
                     hdr.setVersion(null);
                 }
-                //sm.push(hdr);
                 MQOData mqoData = sm.getMqodata();
                 mqoData.setHeader(hdr);
-                ret = true;
                 break;
             default:
-                ret = false;
                 break;
         }
 
@@ -42,21 +39,18 @@ public class ReadHeaderVer implements State {
 
     @Override
     public boolean received(StateMachine sm, LexicalElement input) throws StateTransferException {
-        return false;
+        return true;
     }
 
     @Override
     public boolean preTransfer(StateMachine sm, LexicalElement input) {
 
-        MQOHeader hdr = null;
         boolean ret = true;
 
         switch (input) {
             case HEADER_KEYWORD_VER:
-                ret = true;
                 break;
             default:
-                ret = false;
                 break;
         }
 

@@ -18,13 +18,13 @@ public class ReadHeader implements State {
 
     @Override
     public boolean received(StateMachine sm, LexicalElement input) throws StateTransferException {
-        return false;
+        return true;
     }
 
     @Override
     public boolean preTransfer(StateMachine sm, LexicalElement input) {
 
-        MQOHeader hdr = null;
+        MQOHeader hdr;
         boolean ret = true;
 
         switch (input) {
