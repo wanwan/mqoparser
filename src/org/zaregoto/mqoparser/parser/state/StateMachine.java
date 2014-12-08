@@ -34,6 +34,7 @@ public class StateMachine {
 
 
     TBL[] table = new TBL[]{
+            new TBL(Idle.class,       LexicalElement.NOP,                             Idle.class                ),
             new TBL(Idle.class,       LexicalElement.HEADER_METASEQUOIA,              ReadHeader.class          ),
             new TBL(Idle.class,       LexicalElement.HEADER_KEYWORD_DOCUMENT,         Idle.class                ),
             new TBL(Idle.class,       LexicalElement.HEADER_FORMAT,                   Idle.class                ),
@@ -73,6 +74,7 @@ public class StateMachine {
             new TBL(Idle.class,       LexicalElement.BYTE_ARRAY,                      Idle.class                ),
             new TBL(Idle.class,       LexicalElement.ENTER_CODE,                      Idle.class                ),
 
+            new TBL(ReadHeader.class,       LexicalElement.NOP,                             ReadHeader.class      ),
             new TBL(ReadHeader.class,       LexicalElement.HEADER_METASEQUOIA,              ReadHeader.class      ),
             new TBL(ReadHeader.class,       LexicalElement.HEADER_KEYWORD_DOCUMENT,         ReadHeader.class      ),
             new TBL(ReadHeader.class,       LexicalElement.HEADER_FORMAT,                   ReadHeaderFormat.class),
@@ -112,6 +114,7 @@ public class StateMachine {
             new TBL(ReadHeader.class,       LexicalElement.BYTE_ARRAY,                      ReadHeader.class      ),
             new TBL(ReadHeader.class,       LexicalElement.ENTER_CODE,                      ReadHeader.class      ),
 
+            new TBL(ReadHeaderFormat.class,       LexicalElement.NOP,                             ReadHeaderFormat.class),
             new TBL(ReadHeaderFormat.class,       LexicalElement.HEADER_METASEQUOIA,              ReadHeaderFormat.class),
             new TBL(ReadHeaderFormat.class,       LexicalElement.HEADER_KEYWORD_DOCUMENT,         ReadHeaderFormat.class),
             new TBL(ReadHeaderFormat.class,       LexicalElement.HEADER_FORMAT,                   ReadHeaderFormat.class),
@@ -151,6 +154,7 @@ public class StateMachine {
             new TBL(ReadHeaderFormat.class,       LexicalElement.BYTE_ARRAY,                      ReadHeader.class      ),
             new TBL(ReadHeaderFormat.class,       LexicalElement.ENTER_CODE,                      ReadHeader.class      ),
 
+            new TBL(ReadHeaderVer.class,       LexicalElement.NOP,                             ReadHeaderVer.class),
             new TBL(ReadHeaderVer.class,       LexicalElement.HEADER_METASEQUOIA,              ReadHeaderVer.class),
             new TBL(ReadHeaderVer.class,       LexicalElement.HEADER_KEYWORD_DOCUMENT,         ReadHeaderVer.class),
             new TBL(ReadHeaderVer.class,       LexicalElement.HEADER_FORMAT,                   ReadHeaderVer.class),
@@ -190,6 +194,7 @@ public class StateMachine {
             new TBL(ReadHeaderVer.class,       LexicalElement.BYTE_ARRAY,                      ReadHeaderVer.class),
             new TBL(ReadHeaderVer.class,       LexicalElement.ENTER_CODE,                      ReadHeaderVer.class),
 
+            new TBL(ReadIncludeXml.class,       LexicalElement.NOP,                             ReadIncludeXml.class),
             new TBL(ReadIncludeXml.class,       LexicalElement.HEADER_METASEQUOIA,              ReadIncludeXml.class),
             new TBL(ReadIncludeXml.class,       LexicalElement.HEADER_KEYWORD_DOCUMENT,         ReadIncludeXml.class),
             new TBL(ReadIncludeXml.class,       LexicalElement.HEADER_FORMAT,                   ReadIncludeXml.class),
@@ -229,6 +234,7 @@ public class StateMachine {
             new TBL(ReadIncludeXml.class,       LexicalElement.BYTE_ARRAY,                      ReadIncludeXml.class),
             new TBL(ReadIncludeXml.class,       LexicalElement.ENTER_CODE,                      ReadIncludeXml.class),
 
+            new TBL(ReadScene.class,       LexicalElement.NOP,                             ReadScene.class                ),
             new TBL(ReadScene.class,       LexicalElement.HEADER_METASEQUOIA,              ReadScene.class                ),
             new TBL(ReadScene.class,       LexicalElement.HEADER_KEYWORD_DOCUMENT,         ReadScene.class                ),
             new TBL(ReadScene.class,       LexicalElement.HEADER_FORMAT,                   ReadScene.class                ),
@@ -267,7 +273,8 @@ public class StateMachine {
             new TBL(ReadScene.class,       LexicalElement.FLOAT,                           ReadScene.class                ),
             new TBL(ReadScene.class,       LexicalElement.BYTE_ARRAY,                      ReadScene.class                ),
             new TBL(ReadScene.class,       LexicalElement.ENTER_CODE,                      ReadScene.class                ),
-            
+
+            new TBL(ReadScenePos.class,       LexicalElement.NOP,                             ReadScenePos.class),
             new TBL(ReadScenePos.class,       LexicalElement.HEADER_METASEQUOIA,              ReadScenePos.class),
             new TBL(ReadScenePos.class,       LexicalElement.HEADER_KEYWORD_DOCUMENT,         ReadScenePos.class),
             new TBL(ReadScenePos.class,       LexicalElement.HEADER_FORMAT,                   ReadScenePos.class),
@@ -307,6 +314,7 @@ public class StateMachine {
             new TBL(ReadScenePos.class,       LexicalElement.BYTE_ARRAY,                      ReadScenePos.class),
             new TBL(ReadScenePos.class,       LexicalElement.ENTER_CODE,                      ReadScene.class   ),
 
+            new TBL(ReadSceneLookat.class,       LexicalElement.NOP,                             ReadSceneLookat.class),
             new TBL(ReadSceneLookat.class,       LexicalElement.HEADER_METASEQUOIA,              ReadSceneLookat.class),
             new TBL(ReadSceneLookat.class,       LexicalElement.HEADER_KEYWORD_DOCUMENT,         ReadSceneLookat.class),
             new TBL(ReadSceneLookat.class,       LexicalElement.HEADER_FORMAT,                   ReadSceneLookat.class),
@@ -346,6 +354,7 @@ public class StateMachine {
             new TBL(ReadSceneLookat.class,       LexicalElement.BYTE_ARRAY,                      ReadSceneLookat.class),
             new TBL(ReadSceneLookat.class,       LexicalElement.ENTER_CODE,                      ReadScene.class      ),
 
+            new TBL(ReadSceneHead.class,       LexicalElement.NOP,                             ReadSceneHead.class),
             new TBL(ReadSceneHead.class,       LexicalElement.HEADER_METASEQUOIA,              ReadSceneHead.class),
             new TBL(ReadSceneHead.class,       LexicalElement.HEADER_KEYWORD_DOCUMENT,         ReadSceneHead.class),
             new TBL(ReadSceneHead.class,       LexicalElement.HEADER_FORMAT,                   ReadSceneHead.class),
@@ -385,6 +394,7 @@ public class StateMachine {
             new TBL(ReadSceneHead.class,       LexicalElement.BYTE_ARRAY,                      ReadSceneHead.class),
             new TBL(ReadSceneHead.class,       LexicalElement.ENTER_CODE,                      ReadScene.class    ),
 
+            new TBL(ReadScenePich.class,       LexicalElement.NOP,                             ReadScenePich.class),
             new TBL(ReadScenePich.class,       LexicalElement.HEADER_METASEQUOIA,              ReadScenePich.class),
             new TBL(ReadScenePich.class,       LexicalElement.HEADER_KEYWORD_DOCUMENT,         ReadScenePich.class),
             new TBL(ReadScenePich.class,       LexicalElement.HEADER_FORMAT,                   ReadScenePich.class),
@@ -424,6 +434,7 @@ public class StateMachine {
             new TBL(ReadScenePich.class,       LexicalElement.BYTE_ARRAY,                      ReadScenePich.class),
             new TBL(ReadScenePich.class,       LexicalElement.ENTER_CODE,                      ReadScene.class    ),
 
+            new TBL(ReadSceneOrtho.class,       LexicalElement.NOP,                             ReadSceneOrtho.class),
             new TBL(ReadSceneOrtho.class,       LexicalElement.HEADER_METASEQUOIA,              ReadSceneOrtho.class),
             new TBL(ReadSceneOrtho.class,       LexicalElement.HEADER_KEYWORD_DOCUMENT,         ReadSceneOrtho.class),
             new TBL(ReadSceneOrtho.class,       LexicalElement.HEADER_FORMAT,                   ReadSceneOrtho.class),
@@ -463,6 +474,7 @@ public class StateMachine {
             new TBL(ReadSceneOrtho.class,       LexicalElement.BYTE_ARRAY,                      ReadSceneOrtho.class),
             new TBL(ReadSceneOrtho.class,       LexicalElement.ENTER_CODE,                      ReadScene.class     ),
 
+            new TBL(ReadSceneZoom2.class,       LexicalElement.NOP,                             ReadSceneZoom2.class),
             new TBL(ReadSceneZoom2.class,       LexicalElement.HEADER_METASEQUOIA,              ReadSceneZoom2.class),
             new TBL(ReadSceneZoom2.class,       LexicalElement.HEADER_KEYWORD_DOCUMENT,         ReadSceneZoom2.class),
             new TBL(ReadSceneZoom2.class,       LexicalElement.HEADER_FORMAT,                   ReadSceneZoom2.class),
@@ -502,6 +514,7 @@ public class StateMachine {
             new TBL(ReadSceneZoom2.class,       LexicalElement.BYTE_ARRAY,                      ReadSceneZoom2.class),
             new TBL(ReadSceneZoom2.class,       LexicalElement.ENTER_CODE,                      ReadScene.class     ),
 
+            new TBL(ReadSceneAmb.class,       LexicalElement.NOP,                             ReadSceneAmb.class),
             new TBL(ReadSceneAmb.class,       LexicalElement.HEADER_METASEQUOIA,              ReadSceneAmb.class),
             new TBL(ReadSceneAmb.class,       LexicalElement.HEADER_KEYWORD_DOCUMENT,         ReadSceneAmb.class),
             new TBL(ReadSceneAmb.class,       LexicalElement.HEADER_FORMAT,                   ReadSceneAmb.class),
@@ -541,6 +554,7 @@ public class StateMachine {
             new TBL(ReadSceneAmb.class,       LexicalElement.BYTE_ARRAY,                      ReadSceneAmb.class),
             new TBL(ReadSceneAmb.class,       LexicalElement.ENTER_CODE,                      ReadScene.class   ),
 
+            new TBL(ReadBackImage.class,       LexicalElement.NOP,                             ReadBackImage.class),
             new TBL(ReadBackImage.class,       LexicalElement.HEADER_METASEQUOIA,              ReadBackImage.class),
             new TBL(ReadBackImage.class,       LexicalElement.HEADER_KEYWORD_DOCUMENT,         ReadBackImage.class),
             new TBL(ReadBackImage.class,       LexicalElement.HEADER_FORMAT,                   ReadBackImage.class),
@@ -579,9 +593,7 @@ public class StateMachine {
             new TBL(ReadBackImage.class,       LexicalElement.FLOAT,                           ReadBackImage.class),
             new TBL(ReadBackImage.class,       LexicalElement.BYTE_ARRAY,                      ReadBackImage.class),
             new TBL(ReadBackImage.class,       LexicalElement.ENTER_CODE,                      ReadBackImage.class),
-            
-            
-            
+
             null
     };
 
@@ -634,10 +646,10 @@ public class StateMachine {
                                 LogUtil.d("StateMachine.transfer current: " + current.getStateName() + " input: " + input + " next: " + nextState.getStateName());
                                 break;
                             } else {
-                                throw new StateTransferException("state transfer failed, next status preTransfer() routine return error");
+                                throw new StateTransferException("state transfer failed, next status preTransfer() routine return error. current: " + current + " input: " + input);
                             }
                         } else {
-                            throw new StateTransferException("state transfer failed, current status postTransfer() routine return error");
+                            throw new StateTransferException("state transfer failed, current status postTransfer() routine return error. current: " + current + " input: " + input);
                         }
                     } else {
                         current.received(this, input);
@@ -646,7 +658,7 @@ public class StateMachine {
                 }
             }
             else {
-                throw new StateTransferException("cannot find transfer table element");
+                throw new StateTransferException("cannot find transfer table element. current: " + current + " input: " + input);
             }
         }
     }
