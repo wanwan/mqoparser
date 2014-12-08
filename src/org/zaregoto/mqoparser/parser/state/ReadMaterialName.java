@@ -9,7 +9,7 @@ import org.zaregoto.mqoparser.parser.exception.StateTransferException;
 import java.util.ArrayList;
 
 
-public class ReadMaterialPerLine implements State {
+public class ReadMaterialName implements State {
 
 
     @Override
