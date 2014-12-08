@@ -3,3 +3,5 @@
 * MQOScene に toString を実装する
 
 * MQOBackImage はファイルのフォーマットが不明なのと, 描画上はポリゴン的に無意味なので現状スキップしている.
+
+* lexical analyzer のテストを実装する

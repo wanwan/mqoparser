@@ -67,6 +67,13 @@ public class ParserTest {
 
     }
 
+
+    @Test
+    public void checkLexicalAnalyzer() {
+        // TODO: implement checkLexicalAnalyzer test case
+
+    }
+
     @Test
     public void checkHeader() {
 

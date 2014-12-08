@@ -64,6 +64,12 @@ public class LexicalAnalyzer {
                             next = createMQOElement(buf);
                             break determine_element;
                         }
+                        else if (isParen(c)) {
+                            buf = new StringBuffer();
+                            buf.append(Character.toChars(c));
+                            next = createMQOElement(buf);
+                            break determine_element;
+                        }
                         else if ('\r' == c) {
                             sts = LEXER_STS.CURRENT_SEARCH_ENTER_END;
                             buf = new StringBuffer();
@@ -168,7 +174,7 @@ public class LexicalAnalyzer {
 
         boolean ret = false;
 
-        if (isSeparater(c) || isEnter(c)) {
+        if (isSeparater(c) || isEnter(c) || isParen(c)) {
             ret = false;
         }
         else {
@@ -207,6 +213,20 @@ public class LexicalAnalyzer {
         return ret;
     }
 
+    private boolean isParen(int c) {
+        boolean ret = false;
+
+        switch (c) {
+            case '(':
+            case ')':
+                ret = true;
+                break;
+            default:
+                break;
+        }
+
+        return ret;
+    }
 
     private boolean isChunkSeparaterIn(int c) {
 

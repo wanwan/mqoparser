@@ -3,19 +3,29 @@ package org.zaregoto.mqoparser.model;
 
 public class MQOMaterial {
 
-    enum SHADER {
-        SHADER_CLASSIC,    // 0
-        SHADER_CONSTANT,   // 1
-        SHADER_LAMBERT,    // 2
-        SHADER_PHONG,      // 3
-        SHADER_BLINN,      // 4
+    public static enum SHADER {
+        SHADER_CLASSIC(0),
+        SHADER_CONSTANT(1),
+        SHADER_LAMBERT(2),
+        SHADER_PHONG(3),
+        SHADER_BLINN(4);
+
+        private int shader;
+        SHADER(int shader) {
+            this.shader = shader;
+        }
+        public int getShader() {return shader;}
     }
 
-    enum PROJ_TYPE {
-        PROJ_TYPE_UV,       // 0
-        PROJ_TYPE_PLANE,    // 1
-        PROJ_TYPE_CYLINDER, // 2
-        PROJ_TYPE_SPHERE,   // 3
+    public static enum PROJ_TYPE {
+        PROJ_TYPE_UV(0),       // 0
+        PROJ_TYPE_PLANE(1),    // 1
+        PROJ_TYPE_CYLINDER(2), // 2
+        PROJ_TYPE_SPHERE(3);   // 3
+
+        private int projType;
+        PROJ_TYPE(int projType)  {this.projType = projType;  }
+        public int getProjType() {return projType;           }
     }
 
     private String name = null;
