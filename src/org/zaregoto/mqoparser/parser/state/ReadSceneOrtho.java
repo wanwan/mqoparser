@@ -20,7 +20,7 @@ public class ReadSceneOrtho implements State {
         boolean ret = true;
 
         switch (input) {
-            case CHUNK_SCENE_ORTHO:
+            case ATTR_ORTHO:
                 ortho = new MQOScene.Ortho();
                 break;
             default:

@@ -27,7 +27,7 @@ public class ReadSceneLookat implements State {
         boolean ret = true;
 
         switch (input) {
-            case CHUNK_SCENE_LOOKAT:
+            case ATTR_LOOKAT:
                 current = STATUS.READ_X;
                 lookAt = new MQOScene.LookAt();
                 break;

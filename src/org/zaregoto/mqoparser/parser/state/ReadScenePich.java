@@ -19,7 +19,7 @@ public class ReadScenePich implements State {
         boolean ret = true;
 
         switch (input) {
-            case CHUNK_SCENE_PICH:
+            case ATTR_PICH:
                 pich = new MQOScene.Pich();
                 break;
             default:

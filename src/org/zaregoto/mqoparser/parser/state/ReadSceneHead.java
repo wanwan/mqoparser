@@ -20,7 +20,7 @@ public class ReadSceneHead implements State {
         boolean ret = true;
 
         switch (input) {
-            case CHUNK_SCENE_HEAD:
+            case ATTR_HEAD:
                 head = new MQOScene.Head();
                 break;
             default:

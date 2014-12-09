@@ -4,8 +4,6 @@ import org.zaregoto.mqoparser.model.MQOScene;
 import org.zaregoto.mqoparser.parser.LexicalElement;
 import org.zaregoto.mqoparser.parser.exception.StateTransferException;
 
-import static org.zaregoto.mqoparser.model.MQOScene.*;
-
 
 public class ReadScenePos implements State {
 
@@ -29,7 +27,7 @@ public class ReadScenePos implements State {
         boolean ret = true;
 
         switch (input) {
-            case CHUNK_SCENE_POS:
+            case ATTR_POS:
                 current = STATUS.READ_X;
                 pos = new MQOScene.Pos();
                 break;

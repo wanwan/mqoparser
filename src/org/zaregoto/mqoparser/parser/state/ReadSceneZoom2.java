@@ -20,7 +20,7 @@ public class ReadSceneZoom2 implements State {
         boolean ret = true;
 
         switch (input) {
-            case CHUNK_SCENE_ZOOM2:
+            case ATTR_ZOOM2:
                 zoom2 = new MQOScene.Zoom2();
                 break;
             default:

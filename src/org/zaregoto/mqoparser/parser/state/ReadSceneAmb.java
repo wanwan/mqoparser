@@ -26,7 +26,7 @@ public class ReadSceneAmb implements State {
         boolean ret = true;
 
         switch (input) {
-            case CHUNK_SCENE_AMB:
+            case ATTR_AMB:
                 current = STATUS.READ_X;
                 amb = new MQOScene.Amb();
                 break;
