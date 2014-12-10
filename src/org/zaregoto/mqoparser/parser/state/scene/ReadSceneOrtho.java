@@ -59,7 +59,7 @@ public class ReadSceneOrtho implements State {
             case INT:
                 ortho.setValue(Integer.valueOf(input.getValue()));
                 break;
-            case CHUNK_END:
+            case PAREN_CHUNK_END:
                 // TODO: write chenkend op when scene read
                 break;
             default:

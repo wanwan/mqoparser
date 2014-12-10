@@ -59,7 +59,7 @@ public class ReadSceneZoom2 implements State {
             case FLOAT:
                 zoom2.setValue(Float.valueOf(input.getValue()));
                 break;
-            case CHUNK_END:
+            case PAREN_CHUNK_END:
                 // TODO: write chenkend op when scene read
                 break;
             default:

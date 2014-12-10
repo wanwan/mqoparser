@@ -78,7 +78,7 @@ public class ReadSceneAmb implements State {
                         break;
                 }
                 break;
-            case CHUNK_END:
+            case PAREN_CHUNK_END:
                 // TODO: write chenkend op when scene read
                 break;
             default:

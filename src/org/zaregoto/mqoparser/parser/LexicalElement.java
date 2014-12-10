@@ -89,10 +89,11 @@ public enum LexicalElement {
 
     CHUNK_BLOB("BLOB"),
 
-    CHUNK_BEGIN("{"),
-    CHUNK_END("}"),
+    PAREN_CHUNK_BEGIN("{"),
+    PAREN_CHUNK_END("}"),
     PAREN_BEGIN("("),
     PAREN_END(")"),
+
     STRING(null),
     INT(null),
     FLOAT(null),

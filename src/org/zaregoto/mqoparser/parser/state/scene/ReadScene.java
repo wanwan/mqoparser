@@ -20,7 +20,7 @@ public class ReadScene implements State {
         boolean ret = true;
 
         switch (input) {
-            case CHUNK_END:
+            case PAREN_CHUNK_END:
                 MQOScene scene = (MQOScene) sm.pop();
                 MQOData data = sm.getMqodata();
                 data.setScene(scene);
@@ -48,7 +48,7 @@ public class ReadScene implements State {
                 scene = new MQOScene();
                 sm.push(scene);
                 break;
-            case CHUNK_BEGIN:
+            case PAREN_CHUNK_BEGIN:
                 break;
             case BYTE_ARRAY:
                 break;
@@ -56,7 +56,7 @@ public class ReadScene implements State {
                 break;
             case INT:
                 break;
-            case CHUNK_END:
+            case PAREN_CHUNK_END:
                 break;
         default:
             break;

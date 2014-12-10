@@ -2,9 +2,7 @@ package org.zaregoto.mqoparser.parser.state.material;
 
 
 import org.zaregoto.mqoparser.model.MQOData;
-import org.zaregoto.mqoparser.model.MQOHeader;
 import org.zaregoto.mqoparser.model.MQOMaterial;
-import org.zaregoto.mqoparser.model.MQOScene;
 import org.zaregoto.mqoparser.parser.LexicalElement;
 import org.zaregoto.mqoparser.parser.exception.StateTransferException;
 import org.zaregoto.mqoparser.parser.state.State;
@@ -26,7 +24,7 @@ public class ReadMaterials implements State {
         boolean ret = true;
 
         switch (input) {
-            case CHUNK_END:
+            case PAREN_CHUNK_END:
                 // drop material arraylist from stack
                 sm.pop();
                 break;
@@ -53,7 +51,7 @@ public class ReadMaterials implements State {
                 ArrayList<MQOMaterial> materials = data.getMaterials();
                 sm.push(materials);
                 break;
-            case CHUNK_BEGIN:
+            case PAREN_CHUNK_BEGIN:
                 break;
             case ENTER_CODE:
                 break;
@@ -63,7 +61,7 @@ public class ReadMaterials implements State {
                 break;
             case INT:
                 break;
-            case CHUNK_END:
+            case PAREN_CHUNK_END:
                 break;
             default:
                 break;

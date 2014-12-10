@@ -2,7 +2,6 @@ package org.zaregoto.mqoparser.parser.state;
 
 import org.zaregoto.mqoparser.model.MQOBackImage;
 import org.zaregoto.mqoparser.model.MQOData;
-import org.zaregoto.mqoparser.model.MQOScene;
 import org.zaregoto.mqoparser.parser.LexicalElement;
 import org.zaregoto.mqoparser.parser.exception.StateTransferException;
 
@@ -19,7 +18,7 @@ public class ReadBackImage implements State {
         boolean ret = true;
 
         switch (input) {
-        case CHUNK_END:
+        case PAREN_CHUNK_END:
             //MQOBackImage backImage = (MQOBackImage) sm.pop();
             MQOData data = sm.getMqodata();
             //data.setBackImage(backImage);
@@ -47,7 +46,7 @@ public class ReadBackImage implements State {
             backimage = new MQOBackImage();
             sm.push(backimage);
             break;
-        case CHUNK_BEGIN:
+        case PAREN_CHUNK_BEGIN:
             break;
         case BYTE_ARRAY:
             break;
@@ -55,7 +54,7 @@ public class ReadBackImage implements State {
             break;
         case INT:
             break;
-        case CHUNK_END:
+        case PAREN_CHUNK_END:
             break;
         default:
             break;
