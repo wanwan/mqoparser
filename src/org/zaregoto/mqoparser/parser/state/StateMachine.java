@@ -7,6 +7,7 @@ import org.zaregoto.mqoparser.parser.state.header.ReadHeader;
 import org.zaregoto.mqoparser.parser.state.header.ReadHeaderFormat;
 import org.zaregoto.mqoparser.parser.state.header.ReadHeaderVer;
 import org.zaregoto.mqoparser.parser.state.material.*;
+import org.zaregoto.mqoparser.parser.state.object.ReadObject;
 import org.zaregoto.mqoparser.parser.state.scene.*;
 import org.zaregoto.mqoparser.util.LogUtil;
 
@@ -52,7 +53,7 @@ public class StateMachine {
             new TBL(Idle.class,       LexicalElement.CHUNK_SCENE,                     ReadScene.class,          true ),
             new TBL(Idle.class,       LexicalElement.CHUNK_BACKIMAGE,                 ReadBackImage.class,      true ),
             new TBL(Idle.class,       LexicalElement.CHUNK_MATERIAL,                  ReadMaterials.class,      true ),
-            new TBL(Idle.class,       LexicalElement.CHUNK_OBJECT,                    Idle.class,               true ),
+            new TBL(Idle.class,       LexicalElement.CHUNK_OBJECT,                    ReadObject.class,         true ),
             new TBL(Idle.class,       LexicalElement.CHUNK_VERTEX,                    Idle.class,               false),
             new TBL(Idle.class,       LexicalElement.CHUNK_VERTEX_ATTR,               Idle.class,               false),
             new TBL(Idle.class,       LexicalElement.CHUNK_BVERTEX,                   Idle.class,               false),
@@ -2662,14 +2663,96 @@ public class StateMachine {
             new TBL(ReadMaterialProjAngle.class,       LexicalElement.BYTE_ARRAY,                      ReadMaterialProjAngle.class,        false),
             new TBL(ReadMaterialProjAngle.class,       LexicalElement.ENTER_CODE,                      ReadMaterials.class,                false),
 
+            new TBL(ReadObject.class,       LexicalElement.NOP,                             ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.HEADER_METASEQUOIA,              ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.HEADER_KEYWORD_DOCUMENT,         ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.HEADER_FORMAT,                   ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.HEADER_KEYWORD_VER,              ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.CHUNK_TRIAL_NOISE,               ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.CHUNK_INCLUDE_XML,               ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.CHUNK_SCENE,                     ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.CHUNK_BACKIMAGE,                 ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.CHUNK_MATERIAL,                  ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.CHUNK_OBJECT,                    ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.CHUNK_VERTEX,                    ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.CHUNK_VERTEX_ATTR,               ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.CHUNK_BVERTEX,                   ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.CHUNK_FACE,                      ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.CHUNK_BLOB,                      ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_POS,                        ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_LOOKAT,                     ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_HEAD,                       ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_PICH,                       ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_ORTHO,                      ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_ZOOM2,                      ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_AMB,                        ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_SHADER,                     ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_VCOL,                       ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_DBLS,                       ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_COL,                        ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_DIF,                        ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_EMI,                        ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_SPC,                        ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_POWER,                      ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_REFLECT,                    ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_REFRECT,                    ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_TEX,                        ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_APLANE,                     ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_BUMP,                       ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_PROJ_TYPE,                  ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_PROJ_POS,                   ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_PROJ_SCALE,                 ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_PROJ_ANGLE,                 ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_UID,                        ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_WEIT,                       ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_COLOR,                      ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_VECTOR,                     ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_DEPTH,                      ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_FOLDING,                    ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_SCALE,                      ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_ROTATION,                   ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_TRANSLATION,                ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_PATCH,                      ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_PATCHTRI,                   ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_SEGMENT,                    ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_VISIBLE,                    ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_LOCKING,                    ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_SHADING,                    ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_FACET,                      ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_COLOR_TYPE,                 ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_MIRROR,                     ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_MIRROR_AXIS,                ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_MIRROR_DIS,                 ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_LATHE,                      ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_LATHE_AXIS,                 ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_LATHE_SEG,                  ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_V,                          ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_M,                          ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_UV,                         ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ATTR_CRS,                        ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.PAREN_CHUNK_BEGIN,               ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.PAREN_CHUNK_END,                 Idle.class,              false),
+            new TBL(ReadObject.class,       LexicalElement.PAREN_BEGIN,                     ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.PAREN_END,                       ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.STRING,                          ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.INT,                             ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.FLOAT,                           ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.BYTE_ARRAY,                      ReadObject.class,        false),
+            new TBL(ReadObject.class,       LexicalElement.ENTER_CODE,                      ReadObject.class,        false),
+            
+            
+            
+            
             null
     };
 
     public synchronized void push(Object obj) {
         stack.push(obj);
+        System.out.println("***** push ***** : " + stack.size());
     }
 
     public synchronized Object pop() {
+        System.out.println("***** pop ***** : " + (stack.size() - 1));
         return stack.pop();
     }
 

@@ -19,9 +19,9 @@ public class ReadBackImage implements State {
 
         switch (input) {
         case PAREN_CHUNK_END:
-            //MQOBackImage backImage = (MQOBackImage) sm.pop();
+            MQOBackImage backImage = (MQOBackImage) sm.pop();
             MQOData data = sm.getMqodata();
-            //data.setBackImage(backImage);
+            data.setBackImage(backImage);
             break;
         default:
             break;
