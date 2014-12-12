@@ -14,3 +14,5 @@
 
 * statemachine を hash にする段階で状態と入力が全て直交しているかを機械検査で確認するようにする
   -> interface だと遷移関数がばらける問題にたいしてのうまい解決策はないものか?
+
+* transfer table(xlsx) から 自動で csv を作成するように build script を作成する

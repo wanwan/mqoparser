@@ -2,6 +2,7 @@ package org.zaregoto.mqoparser.parser.state;
 
 import org.zaregoto.mqoparser.model.MQOData;
 import org.zaregoto.mqoparser.parser.LexicalElement;
+import org.zaregoto.mqoparser.parser.exception.LoadStateException;
 import org.zaregoto.mqoparser.parser.exception.StateTransferException;
 import org.zaregoto.mqoparser.parser.state.header.ReadHeader;
 import org.zaregoto.mqoparser.parser.state.header.ReadHeaderFormat;
@@ -14,10 +15,17 @@ import org.zaregoto.mqoparser.parser.state.object.ReadObjectUid;
 import org.zaregoto.mqoparser.parser.state.scene.*;
 import org.zaregoto.mqoparser.util.LogUtil;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Stack;
 
 
 public class StateMachine {
+
+    private static final String STATE_TRANSFER_TABLE = "org/zaregoto/mqoparser/parser/tbl/state_tbl.csv";
+
 
     private State current;
     private Stack<Object> stack;
@@ -2967,6 +2975,73 @@ public class StateMachine {
             }
             else {
                 throw new StateTransferException("cannot find transfer table element. current: " + current + " input: " + input);
+            }
+        }
+    }
+
+    public void loadTransferTable() throws LoadStateException {
+
+        InputStream is = null;
+        BufferedReader br;
+        String hdr;
+        String[] inputs;
+        String line;
+        String curState;
+        String nextState;
+        String[] states;
+
+        try {
+            is = ClassLoader.getSystemResourceAsStream(STATE_TRANSFER_TABLE);
+
+            if (null != is) {
+                br = new BufferedReader(new InputStreamReader(is));
+                if (null != br) {
+                    try {
+                        hdr = br.readLine();
+                        if (null != hdr) {
+                            inputs = hdr.split(",");
+                            if (inputs.length < 2) {
+                                throw new LoadStateException("header size is too small, maybe format is not correct: " + STATE_TRANSFER_TABLE);
+                            }
+                        }
+                        else {
+                            throw new LoadStateException("header is null, maybe format is not correct: " + STATE_TRANSFER_TABLE);
+                        }
+
+                        while (null != (line = br.readLine())) {
+                            states = line.split(",");
+                            if (inputs.length != states.length) {
+                                throw new LoadStateException("state length and input length is not same, maybe format is not correct: " + STATE_TRANSFER_TABLE);
+                            }
+                            else {
+                                curState = inputs[0];
+                                for (int i = 1; i < inputs.length; i++) {
+
+                                }
+                            }
+                        }
+
+                    } catch (IOException e) {
+
+                    } finally {
+                        try {
+                            br.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        br = null;
+                    }
+                }
+                else {
+                    throw new LoadStateException("cannot read STATE_TRANSFER_TABLE: " + STATE_TRANSFER_TABLE);
+                }
+            }
+            else {
+                throw new LoadStateException("cannot load STATE_TRANSFER_TABLE: " + STATE_TRANSFER_TABLE);
+            }
+        } finally {
+            if (null != is) {
+                try { is.close();  } catch (IOException e) { e.printStackTrace();  }
             }
         }
     }
