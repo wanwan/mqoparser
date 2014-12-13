@@ -12,8 +12,8 @@ public class ReadScenePos extends State {
     enum STATUS {
         READ_X,
         READ_Y,
-        READ_Z;
-    };
+        READ_Z
+    }
 
     private STATUS current;
     private MQOScene.Pos pos;
