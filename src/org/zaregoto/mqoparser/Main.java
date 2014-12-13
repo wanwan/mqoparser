@@ -4,6 +4,7 @@ package org.zaregoto.mqoparser;
 import org.apache.commons.cli.*;
 import org.zaregoto.mqoparser.model.MQOData;
 import org.zaregoto.mqoparser.parser.MQOParser;
+import org.zaregoto.mqoparser.parser.exception.LoadStateException;
 import org.zaregoto.mqoparser.parser.exception.StateTransferException;
 import org.zaregoto.mqoparser.util.LogUtil;
 
@@ -52,6 +53,8 @@ public class Main {
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (StateTransferException e) {
+                e.printStackTrace();
+            } catch (LoadStateException e) {
                 e.printStackTrace();
             } finally {
                 try {

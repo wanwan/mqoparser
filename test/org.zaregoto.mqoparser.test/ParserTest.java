@@ -7,6 +7,7 @@ import org.zaregoto.mqoparser.model.MQOHeader;
 import org.zaregoto.mqoparser.model.MQOIncludeXml;
 import org.zaregoto.mqoparser.model.MQOScene;
 import org.zaregoto.mqoparser.parser.MQOParser;
+import org.zaregoto.mqoparser.parser.exception.LoadStateException;
 import org.zaregoto.mqoparser.parser.exception.StateTransferException;
 import org.zaregoto.mqoparser.util.LogUtil;
 
@@ -319,6 +320,8 @@ public class ParserTest {
 
             LogUtil.d(data.toString());
 
+        } catch (LoadStateException e) {
+            e.printStackTrace();
         } finally {
             try {
                 parser.close();

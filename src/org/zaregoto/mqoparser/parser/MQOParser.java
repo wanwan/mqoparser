@@ -18,12 +18,6 @@ public class MQOParser {
 
 
     public MQOParser() {
-
-        try {
-            stateMachine.initialize();
-        } catch (LoadStateException e) {
-            e.printStackTrace();
-        }
     }
 
     public void open(String filename) throws FileNotFoundException {
@@ -39,12 +33,12 @@ public class MQOParser {
 
     }
 
-    public MQOData parse() throws IOException, StateTransferException {
+    public MQOData parse() throws IOException, StateTransferException, LoadStateException {
 
         LexicalElement e;
         MQOData data;
 
-        stateMachine.init();
+        stateMachine.initialize();
 
         while (null != (e = lexicalAnalyzer.next())) {
             e.dump();
