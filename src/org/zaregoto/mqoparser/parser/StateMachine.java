@@ -2940,8 +2940,8 @@ public class StateMachine {
 
             if (null != current && current.postTransfer(this, input)) {
                 if (null != nextState && nextState.preTransfer(this, input)) {
-                    current = nextState;
                     LogUtil.d("StateMachine.transfer current: " + current.getStateName() + " input: " + input + " next: " + nextState.getStateName());
+                    current = nextState;
                 } else {
                     throw new StateTransferException("state transfer failed, next status preTransfer() routine return error. current: " + current + " input: " + input);
                 }
