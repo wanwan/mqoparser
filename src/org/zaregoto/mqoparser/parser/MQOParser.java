@@ -2,8 +2,8 @@ package org.zaregoto.mqoparser.parser;
 
 
 import org.zaregoto.mqoparser.model.MQOData;
+import org.zaregoto.mqoparser.parser.exception.LoadStateException;
 import org.zaregoto.mqoparser.parser.exception.StateTransferException;
-import org.zaregoto.mqoparser.parser.state.StateMachine;
 
 import java.io.*;
 
@@ -18,6 +18,12 @@ public class MQOParser {
 
 
     public MQOParser() {
+
+        try {
+            stateMachine.initialize();
+        } catch (LoadStateException e) {
+            e.printStackTrace();
+        }
     }
 
     public void open(String filename) throws FileNotFoundException {
