@@ -1,10 +1,8 @@
 package org.zaregoto.mqoparser.parser;
 
-import com.sun.org.apache.xml.internal.security.Init;
 import org.zaregoto.mqoparser.model.MQOData;
 import org.zaregoto.mqoparser.parser.exception.LoadStateException;
 import org.zaregoto.mqoparser.parser.exception.StateTransferException;
-import org.zaregoto.mqoparser.parser.states.Idle;
 import org.zaregoto.mqoparser.util.LogUtil;
 
 import javax.tools.*;
@@ -12,7 +10,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,8 +21,18 @@ import java.util.regex.Pattern;
 public class StateMachine {
 
     private static final String STATE_TRANSFER_TABLE = "/org/zaregoto/mqoparser/parser/tbl/states_tbl.csv";
-    private static final java.lang.String STATE_PACKAGE_ROOT = "org.zaregoto.mqoparser.parser.states";
+    //private static final java.lang.String STATE_PACKAGE_ROOT = "org.zaregoto.mqoparser.parser.states";
     private static final String INITIAL_STATE_NAME = "Idle";
+    private static final String[] STATE_PACKAGES = {
+            "org.zaregoto.mqoparser.parser.states",
+            "org.zaregoto.mqoparser.parser.states.header",
+            "org.zaregoto.mqoparser.parser.states.material",
+            "org.zaregoto.mqoparser.parser.states.object",
+            "org.zaregoto.mqoparser.parser.states.object.bvertex",
+            "org.zaregoto.mqoparser.parser.states.object.face",
+            "org.zaregoto.mqoparser.parser.states.object.vertexattr",
+            "org.zaregoto.mqoparser.parser.states.scene",
+    };
 
     private State current;
     private Stack<Object> stack;
@@ -63,9 +74,6 @@ public class StateMachine {
         String[] states;
 
         try {
-            // TODO:
-            current = new Idle();
-
             searchStateClass(statesTable);
 
             current = statesTable.get(INITIAL_STATE_NAME);
@@ -113,18 +121,17 @@ public class StateMachine {
                         }
 
                     } catch (IOException e) {
-
+                        throw new LoadStateException("cannot read STATE_TRANSFER_TABLE: " + STATE_TRANSFER_TABLE);
                     } finally {
                         try {
                             br.close();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        br = null;
                     }
                 }
                 else {
-                    throw new LoadStateException("cannot read STATE_TRANSFER_TABLE: " + STATE_TRANSFER_TABLE);
+                    throw new LoadStateException("cannot read STATE_TRANSFER_TABLE(line): " + STATE_TRANSFER_TABLE);
                 }
             }
             else {
@@ -158,28 +165,23 @@ public class StateMachine {
             return;
         }
 
-        Package[] packages = Package.getPackages();
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         String regex = ".*/(.*)\\.class$";
         Pattern ptn = Pattern.compile(regex);
         String className;
-        for (Package pkg : packages) {
-            if (pkg.getName().startsWith(STATE_PACKAGE_ROOT)) {
-                for (JavaFileObject f : fm.list(StandardLocation.CLASS_PATH, pkg.getName(), kind, false)) {
-                    Matcher m = ptn.matcher(f.getName());
-                    if (m.find()) {
-                        try {
-                            className = m.group(1);
-                            if (className.contains("$")) {
-                                // ignore inner class
-                            } else {
-                                State state = (State) loader.loadClass(pkg.getName() + "." + className).newInstance();
-                                availableStates.put(className, state);
-                            }
-                        } catch (ClassNotFoundException e) {
-                            e.printStackTrace();
-                        } finally {
+
+        for (String packageName : STATE_PACKAGES) {
+            for (JavaFileObject f : fm.list(StandardLocation.CLASS_PATH, packageName, kind, false)) {
+                Matcher m = ptn.matcher(f.getName());
+                if (m.find()) {
+                    try {
+                        className = m.group(1);
+                        if (!className.contains("$")) { // ignore inner class case
+                            State state = (State) loader.loadClass(packageName + "." + className).newInstance();
+                            availableStates.put(className, state);
                         }
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
                     }
                 }
             }

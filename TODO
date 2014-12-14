@@ -29,3 +29,5 @@
 * searchStatusClass が package.getAllPackages を使用しており，この使用より前に states 以下へのクラス参照がないと
   動作しないため，これを特定のパッケージ以下を全て探して instanceof State で条件とするように修正する
   -> 内部クラスがどういう反応をするかは不明なので調査が必要．
+
+* 未実装 chunk / attribute をまとめる
