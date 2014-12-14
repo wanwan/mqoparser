@@ -5,8 +5,15 @@ import org.zaregoto.mqoparser.parser.State;
 import org.zaregoto.mqoparser.parser.StateMachine;
 import org.zaregoto.mqoparser.parser.exception.StateTransferException;
 
+import java.util.ArrayList;
+
+import static org.zaregoto.mqoparser.parser.LexicalElement.*;
+
 
 public class ReadObjectVertex extends State {
+
+
+    private ArrayList<Float> datas;
 
     @Override
     public String getStateName() {
@@ -15,16 +22,38 @@ public class ReadObjectVertex extends State {
 
     @Override
     public boolean preTransfer(StateMachine sm, LexicalElement input) throws StateTransferException {
+
+        switch (input) {
+            case CHUNK_VERTEX:
+                if (null == datas) {
+                    datas = new ArrayList<Float>();
+                }
+                break;
+        }
+
         return true;
     }
 
     @Override
     public boolean postTransfer(StateMachine sm, LexicalElement input) throws StateTransferException {
+
+        switch (input) {
+            case PAREN_CHUNK_END:
+                break;
+        }
+
         return true;
     }
 
     @Override
     public boolean received(StateMachine sm, LexicalElement input) throws StateTransferException {
+
+        switch (input) {
+            case FLOAT:
+                datas.add(Float.valueOf(input.getValue()));
+                break;
+        }
+
         return true;
     }
 }

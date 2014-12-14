@@ -1,5 +1,8 @@
 package org.zaregoto.mqoparser.model;
 
+import java.awt.*;
+import java.awt.geom.Point2D;
+import java.lang.reflect.Array;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
@@ -11,7 +14,7 @@ import java.util.Iterator;
 
 public class MQOObject {
 
-   enum SHADING {
+    enum SHADING {
         FLAT_SHADING,
         GLOW_SHADING,
     }
@@ -73,10 +76,10 @@ public class MQOObject {
     private Integer bVertex = null;
     private Integer face = null;
 
-    private MQOPolygon polygons = null;
+    //private MQOPolygon polygons = null;
 
     public MQOObject() {
-    	polygons = new MQOPolygon();
+    	//polygons = new MQOPolygon();
         return;
     }
 
@@ -266,125 +269,189 @@ public class MQOObject {
     }
 
 
-	public void setPolygons(MQOPolygon polygons) {
-		this.polygons = polygons;
-	}
+//	public void setPolygons(MQOPolygon polygons) {
+//		this.polygons = polygons;
+//	}
+//
+//
+//
+//    public MQOPolygon getPolygons() {
+//		return polygons;
+//	}
+//
+//
+//    // TODO: これなんとかならんかな. format 的に vertex size { 形式なんで, polygon を Array で覚えるのやめるべきかも.
+//    public FloatBuffer makeVertexFloatBuffer() {
+//
+//		int size = -1;
+//		float[] expands = null;
+//		ByteBuffer bb = null;
+//		FloatBuffer fb = null;
+//		MQOPolygon.Vertex vertex = null;
+//		int i = 0;
+//
+//		if (null != polygons ) {
+//			size = polygons.getVertexes().size() * 3;
+//			expands = new float[size];
+//
+//			Iterator<MQOPolygon.Vertex> it = polygons.getVertexes().iterator();
+//			while (it.hasNext()) {
+//				vertex = it.next();
+//				expands[i+0] = vertex.getX();
+//				expands[i+1] = vertex.getY();
+//				expands[i+2] = vertex.getZ();
+//				i += 3;
+//			}
+//
+//			bb = ByteBuffer.allocateDirect(4 * size); // sizeof(float) * num of points
+//			bb.order(ByteOrder.nativeOrder());
+//			fb = bb.asFloatBuffer();
+//			fb.put(expands);
+//			fb.position(0);
+//		}
+//
+//		return fb;
+//    }
+//
+//
+//	// TODO: なんとかならんかな、これ。
+//	public ShortBuffer makeTrianglePolygonShortBuffer() {
+//
+//		int size = -1;
+//		ArrayList<Short> expands = null;
+//		Short[] _expands = null;
+//		short[] __expands = null;
+//		ByteBuffer bb = null;
+//		ShortBuffer sb = null;
+//		MQOPolygon.Polygon polygon = null;
+//
+//		if (null != polygons ) {
+//			expands = new ArrayList<Short>();
+//
+//			Iterator<MQOPolygon.TrianglePolygon> it = polygons.getTriangles().iterator();
+//			while (it.hasNext()) {
+//				polygon = it.next();
+//				expands.addAll(Arrays.asList(polygon.getIndexes()));
+//			}
+//
+//			_expands = expands.toArray(new Short[0]);
+//			if (null != _expands) {
+//				__expands = new short[_expands.length];
+//				for (int i = 0; i < _expands.length; i++) {
+//					__expands[i] = _expands[i];
+//				}
+//			}
+//			size = expands.size();
+//			bb = ByteBuffer.allocateDirect(2 * size); // sizeof(short) * num of points
+//			bb.order(ByteOrder.nativeOrder());
+//			sb = bb.asShortBuffer();
+//			sb.put(__expands);
+//			sb.position(0);
+//		}
+//
+//		return sb;
+//	}
+//
+//
+//	public ShortBuffer makeQuadPolygonShortBuffer() {
+//
+//		int size = -1;
+//		ArrayList<Short> expands = null;
+//		Short[] _expands = null;
+//		short[] __expands = null;
+//		ByteBuffer bb = null;
+//		ShortBuffer sb = null;
+//		MQOPolygon.Polygon polygon = null;
+//
+//		if (null != polygons ) {
+//			expands = new ArrayList<Short>();
+//
+//			Iterator<MQOPolygon.QuadPolygon> it = polygons.getQuads().iterator();
+//			while (it.hasNext()) {
+//				polygon = it.next();
+//				expands.addAll(Arrays.asList(polygon.getIndexes()));
+//			}
+//
+//			_expands = expands.toArray(new Short[0]);
+//			if (null != _expands) {
+//				__expands = new short[_expands.length];
+//				for (int i = 0; i < _expands.length; i++) {
+//					__expands[i] = _expands[i];
+//				}
+//			}
+//			size = expands.size();
+//			bb = ByteBuffer.allocateDirect(2 * size); // sizeof(short) * num of points
+//			bb.order(ByteOrder.nativeOrder());
+//			sb = bb.asShortBuffer();
+//			sb.put(__expands);
+//			sb.position(0);
+//		}
+//
+//		return sb;
+//
+//	}
 
 
-	public MQOPolygon getPolygons() {
-		return polygons;
-	}
-	
-	
-	// TODO: これなんとかならんかな. format 的に vertex size { 形式なんで, polygon を Array で覚えるのやめるべきかも.
-	public FloatBuffer makeVertexFloatBuffer() {
+    public class MQOVertex {
+        private ArrayList<Float> datas;
 
-		int size = -1;
-		float[] expands = null;
-		ByteBuffer bb = null;
-		FloatBuffer fb = null;
-		MQOPolygon.Vertex vertex = null;
-		int i = 0;
+        private MQOVertex() {
+        }
 
-		if (null != polygons ) {
-			size = polygons.getVertexes().size() * 3;
-			expands = new float[size];
-		
-			Iterator<MQOPolygon.Vertex> it = polygons.getVertexes().iterator();
-			while (it.hasNext()) {
-				vertex = it.next();
-				expands[i+0] = vertex.getX();
-				expands[i+1] = vertex.getY(); 
-				expands[i+2] = vertex.getZ();
-				i += 3;
-			}
-			
-			bb = ByteBuffer.allocateDirect(4 * size); // sizeof(float) * num of points
-			bb.order(ByteOrder.nativeOrder());
-			fb = bb.asFloatBuffer();
-			fb.put(expands);
-			fb.position(0);
-		}
-		
-		return fb;
-	}
-	
+        public MQOVertex(ArrayList<Float> datas) {
+            this.datas = datas;
+        }
 
-	// TODO: なんとかならんかな、これ。
-	public ShortBuffer makeTrianglePolygonShortBuffer() {
+        public ArrayList<Float> getDatas() {
+            return datas;
+        }
+    }
 
-		int size = -1;
-		ArrayList<Short> expands = null;
-		Short[] _expands = null;
-		short[] __expands = null;
-		ByteBuffer bb = null;
-		ShortBuffer sb = null;
-		MQOPolygon.Polygon polygon = null;
+    public class MQOBVertex {
+        // TODO: not implement yet (MQOBVertex)
+    }
 
-		if (null != polygons ) {
-			expands = new ArrayList<Short>();
-		
-			Iterator<MQOPolygon.TrianglePolygon> it = polygons.getTriangles().iterator();
-			while (it.hasNext()) {
-				polygon = it.next();
-				expands.addAll(Arrays.asList(polygon.getIndexes()));
-			}
-			
-			_expands = expands.toArray(new Short[0]);
-			if (null != _expands) {
-				__expands = new short[_expands.length];
-				for (int i = 0; i < _expands.length; i++) {
-					__expands[i] = _expands[i]; 
-				}
-			}
-			size = expands.size();
-			bb = ByteBuffer.allocateDirect(2 * size); // sizeof(short) * num of points
-			bb.order(ByteOrder.nativeOrder());
-			sb = bb.asShortBuffer();
-			sb.put(__expands);
-			sb.position(0);
-		}
-		
-		return sb;
-	}
+    public class MQOVertexAttr {
+        // TODO: not implement yet (MQOVertexAttr)
+    }
 
+    public class MQOFace {
+        private ArrayList<Integer> index;
+        private ArrayList<Integer> material;
+        private ArrayList<Point2D.Float> uv;
+        private ArrayList<Color> col;
+        private ArrayList<Boolean> crs;
 
-	public ShortBuffer makeQuadPolygonShortBuffer() {
+        private MQOFace() {
+        }
 
-		int size = -1;
-		ArrayList<Short> expands = null;
-		Short[] _expands = null;
-		short[] __expands = null;
-		ByteBuffer bb = null;
-		ShortBuffer sb = null;
-		MQOPolygon.Polygon polygon = null;
+        public MQOFace(ArrayList<Integer> index, ArrayList<Integer> material, ArrayList<Point2D.Float> uv, ArrayList<Color> col, ArrayList<Boolean> crs) {
+            this.index = index;
+            this.material = material;
+            this.uv = uv;
+            this.col = col;
+            this.crs = crs;
+        }
 
-		if (null != polygons ) {
-			expands = new ArrayList<Short>();
-		
-			Iterator<MQOPolygon.QuadPolygon> it = polygons.getQuads().iterator();
-			while (it.hasNext()) {
-				polygon = it.next();
-				expands.addAll(Arrays.asList(polygon.getIndexes()));
-			}
-			
-			_expands = expands.toArray(new Short[0]);
-			if (null != _expands) {
-				__expands = new short[_expands.length];
-				for (int i = 0; i < _expands.length; i++) {
-					__expands[i] = _expands[i]; 
-				}
-			}
-			size = expands.size();			
-			bb = ByteBuffer.allocateDirect(2 * size); // sizeof(short) * num of points
-			bb.order(ByteOrder.nativeOrder());
-			sb = bb.asShortBuffer();
-			sb.put(__expands);
-			sb.position(0);
-		}
-		
-		return sb;
-		
-	}	
-	
+        public ArrayList<Integer> getIndex() {
+            return index;
+        }
+
+        public ArrayList<Integer> getMaterial() {
+            return material;
+        }
+
+        public ArrayList<Point2D.Float> getUv() {
+            return uv;
+        }
+
+        public ArrayList<Color> getCol() {
+            return col;
+        }
+
+        public ArrayList<Boolean> getCrs() {
+            return crs;
+        }
+    }
+
 }
