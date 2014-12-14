@@ -392,7 +392,7 @@ public class MQOObject {
 //	}
 
 
-    public class MQOVertex {
+    public static class MQOVertex {
         private ArrayList<Float> datas;
 
         private MQOVertex() {
@@ -407,15 +407,15 @@ public class MQOObject {
         }
     }
 
-    public class MQOBVertex {
+    public static class MQOBVertex {
         // TODO: not implement yet (MQOBVertex)
     }
 
-    public class MQOVertexAttr {
+    public static class MQOVertexAttr {
         // TODO: not implement yet (MQOVertexAttr)
     }
 
-    public class MQOFace {
+    public static class MQOFace {
         private ArrayList<Integer> index;
         private ArrayList<Integer> material;
         private ArrayList<Point2D.Float> uv;

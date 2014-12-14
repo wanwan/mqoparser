@@ -1,5 +1,6 @@
 package org.zaregoto.mqoparser.parser.states.object;
 
+import org.zaregoto.mqoparser.model.MQOObject;
 import org.zaregoto.mqoparser.parser.LexicalElement;
 import org.zaregoto.mqoparser.parser.State;
 import org.zaregoto.mqoparser.parser.StateMachine;
@@ -7,6 +8,7 @@ import org.zaregoto.mqoparser.parser.exception.StateTransferException;
 
 import java.util.ArrayList;
 
+import static org.zaregoto.mqoparser.model.MQOObject.*;
 import static org.zaregoto.mqoparser.parser.LexicalElement.*;
 
 
@@ -24,11 +26,11 @@ public class ReadObjectVertex extends State {
     public boolean preTransfer(StateMachine sm, LexicalElement input) throws StateTransferException {
 
         switch (input) {
-            case CHUNK_VERTEX:
-                if (null == datas) {
-                    datas = new ArrayList<Float>();
-                }
-                break;
+        case CHUNK_VERTEX:
+            if (null == datas) {
+                datas = new ArrayList<Float>();
+            }
+            break;
         }
 
         return true;
@@ -38,8 +40,10 @@ public class ReadObjectVertex extends State {
     public boolean postTransfer(StateMachine sm, LexicalElement input) throws StateTransferException {
 
         switch (input) {
-            case PAREN_CHUNK_END:
-                break;
+        case PAREN_CHUNK_END:
+            MQOObject.MQOVertex vertex = new MQOObject.MQOVertex(datas);
+            sm.push(vertex);
+            break;
         }
 
         return true;
@@ -49,9 +53,9 @@ public class ReadObjectVertex extends State {
     public boolean received(StateMachine sm, LexicalElement input) throws StateTransferException {
 
         switch (input) {
-            case FLOAT:
-                datas.add(Float.valueOf(input.getValue()));
-                break;
+        case FLOAT:
+            datas.add(Float.valueOf(input.getValue()));
+            break;
         }
 
         return true;
