@@ -434,6 +434,7 @@ public class MQOObject {
         private ArrayList<Point2D.Float> uv;
         private ArrayList<Color> col;
         private ArrayList<Boolean> crs;
+        private ArrayList<Integer> v;
 
         public MQOFace() {
         }
@@ -464,6 +465,10 @@ public class MQOObject {
 
         public ArrayList<Boolean> getCrs() {
             return crs;
+        }
+
+        public void setV(ArrayList<Integer> v) {
+            this.v = v;
         }
     }
 

@@ -1,5 +1,6 @@
 package org.zaregoto.mqoparser.parser.states.object.face;
 
+import org.zaregoto.mqoparser.model.MQOData;
 import org.zaregoto.mqoparser.model.MQOObject;
 import org.zaregoto.mqoparser.parser.LexicalElement;
 import org.zaregoto.mqoparser.parser.State;
@@ -21,13 +22,15 @@ public class ReadObjectFace extends State {
 
         switch (input) {
         case CHUNK_FACE:
-            MQOObject.MQOFace face = new MQOObject.MQOFace();
-            sm.push(face);
             break;
         case PAREN_CHUNK_END:
-            Object subchunk = sm.pop();
-            if (subchunk instanceof MQOObject.MQOFace) {
-            }
+            break;
+        case ENTER_CODE:
+            MQOObject.MQOFace face = (MQOObject.MQOFace) sm.pop();
+            MQOObject data = (MQOObject) sm.pop();
+            data.addFace(face);
+            sm.push(data);
+            face = null;
             break;
         }
 
@@ -37,13 +40,38 @@ public class ReadObjectFace extends State {
     @Override
     public boolean postTransfer(StateMachine sm, LexicalElement input) throws StateTransferException {
 
-
+        switch (input) {
+            case ATTR_V:
+            case ATTR_M:
+            case ATTR_UV:
+            case ATTR_COL:
+            case ATTR_CRS:
+                if (null == face) {
+                    face = new MQOObject.MQOFace();
+                    sm.push(face);
+                }
+                break;
+        }
 
         return true;
     }
 
     @Override
     public boolean received(StateMachine sm, LexicalElement input) throws StateTransferException {
+
+        switch (input) {
+            case ATTR_V:
+            case ATTR_M:
+            case ATTR_UV:
+            case ATTR_COL:
+            case ATTR_CRS:
+                if (null == face) {
+                    face = new MQOObject.MQOFace();
+                    sm.push(face);
+                }
+                break;
+        }
+
         return true;
     }
 }
