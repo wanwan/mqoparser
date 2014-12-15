@@ -72,9 +72,11 @@ public class MQOObject {
     private LATHE_TYPE latheType = null;
     private LATHE_AXIS latheAxis = null;
     private Integer latheSig = null;
-    private Integer vertex = null;
-    private Integer bVertex = null;
-    private Integer face = null;
+
+    private MQOVertex vertex = null;
+    private MQOBVertex bVertex = null;
+    private MQOVertexAttr vertexAttr = null;
+    private ArrayList<MQOFace> faces = null;
 
     //private MQOPolygon polygons = null;
 
@@ -244,28 +246,39 @@ public class MQOObject {
         this.latheSig = latheSig;
     }
 
-    public Integer getVertex() {
+    public MQOVertex getVertex() {
         return vertex;
     }
 
-    public void setVertex(Integer vertex) {
+    public void setVertex(MQOVertex vertex) {
         this.vertex = vertex;
     }
 
-    public Integer getbVertex() {
+    public MQOBVertex getbVertex() {
         return bVertex;
     }
 
-    public void setbVertex(Integer bVertex) {
+    public void setbVertex(MQOBVertex bVertex) {
         this.bVertex = bVertex;
     }
 
-    public Integer getFace() {
-        return face;
+    public MQOVertexAttr getbVertexAttr() {
+        return vertexAttr;
     }
 
-    public void setFace(Integer face) {
-        this.face = face;
+    public void setbVertex(MQOVertexAttr vertexAttr) {
+        this.vertexAttr = vertexAttr;
+    }
+
+    public ArrayList<MQOFace> getFace() {
+        return faces;
+    }
+
+    public void addFace(MQOFace face) {
+        if (null == faces) {
+            faces = new ArrayList<MQOFace>();
+        }
+        faces.add(face);
     }
 
 
@@ -422,7 +435,7 @@ public class MQOObject {
         private ArrayList<Color> col;
         private ArrayList<Boolean> crs;
 
-        private MQOFace() {
+        public MQOFace() {
         }
 
         public MQOFace(ArrayList<Integer> index, ArrayList<Integer> material, ArrayList<Point2D.Float> uv, ArrayList<Color> col, ArrayList<Boolean> crs) {

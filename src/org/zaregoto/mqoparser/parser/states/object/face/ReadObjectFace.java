@@ -21,10 +21,13 @@ public class ReadObjectFace extends State {
 
         switch (input) {
         case CHUNK_FACE:
+            MQOObject.MQOFace face = new MQOObject.MQOFace();
+            sm.push(face);
             break;
-        case PAREN_END:
+        case PAREN_CHUNK_END:
             Object subchunk = sm.pop();
-            if (subchunk instanceof MQOObject.MQOFace)
+            if (subchunk instanceof MQOObject.MQOFace) {
+            }
             break;
         }
 
