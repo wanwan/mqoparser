@@ -10,7 +10,8 @@ import org.zaregoto.mqoparser.parser.exception.StateTransferException;
 
 public class ReadObject extends State {
 
-    MQOObject object;
+    private MQOObject object;
+    private String name = null;
 
     @Override
     public String getStateName() {
@@ -23,6 +24,7 @@ public class ReadObject extends State {
         switch (input) {
             case CHUNK_OBJECT:
                 object = new MQOObject();
+                object.setName(name);
                 sm.push(object);
                 break;
             case ATTR_V:
@@ -55,6 +57,15 @@ public class ReadObject extends State {
 
     @Override
     public boolean received(StateMachine sm, LexicalElement input) throws StateTransferException {
+
+        switch (input) {
+            case STRING:
+                if (null == name) {
+                    name = input.getValue();
+                }
+                break;
+        }
+
         return true;
     }
 }

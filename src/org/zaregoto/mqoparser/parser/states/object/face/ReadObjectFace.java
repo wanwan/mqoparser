@@ -24,13 +24,16 @@ public class ReadObjectFace extends State {
         case CHUNK_FACE:
             break;
         case PAREN_CHUNK_END:
+
+            System.out.println("***** FACE CHUNK_END 1 *****");
+
             break;
         case ENTER_CODE:
-            MQOObject.MQOFace face = (MQOObject.MQOFace) sm.pop();
-            MQOObject data = (MQOObject) sm.pop();
-            data.addFace(face);
-            sm.push(data);
-            face = null;
+//            MQOObject.MQOFace face = (MQOObject.MQOFace) sm.pop();
+//            MQOObject data = (MQOObject) sm.pop();
+//            data.addFace(face);
+//            sm.push(data);
+//            face = null;
             break;
         }
 
@@ -51,6 +54,11 @@ public class ReadObjectFace extends State {
                     sm.push(face);
                 }
                 break;
+            case PAREN_CHUNK_END:
+
+                System.out.println("***** FACE CHUNK_END 2 *****");
+
+                break;
         }
 
         return true;
@@ -65,10 +73,24 @@ public class ReadObjectFace extends State {
             case ATTR_UV:
             case ATTR_COL:
             case ATTR_CRS:
-                if (null == face) {
-                    face = new MQOObject.MQOFace();
-                    sm.push(face);
+//                if (null == face) {
+//                    face = new MQOObject.MQOFace();
+//                    sm.push(face);
+//                }
+                break;
+            case ENTER_CODE:
+                if (null != face) {
+                    sm.pop(); // drop face
+                    MQOObject data = (MQOObject) sm.pop();
+                    data.addFace(face);
+                    sm.push(data);
+                    face = null;
                 }
+                break;
+            case PAREN_CHUNK_END:
+
+                System.out.println("***** FACE CHUNK_END 3 *****");
+
                 break;
         }
 

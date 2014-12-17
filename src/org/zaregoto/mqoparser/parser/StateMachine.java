@@ -1,5 +1,6 @@
 package org.zaregoto.mqoparser.parser;
 
+import org.zaregoto.mqoparser.Settings;
 import org.zaregoto.mqoparser.model.MQOData;
 import org.zaregoto.mqoparser.parser.exception.LoadStateException;
 import org.zaregoto.mqoparser.parser.exception.StateTransferException;
@@ -10,10 +11,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Stack;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -52,12 +50,34 @@ public class StateMachine {
 
 
     public synchronized void push(Object obj) {
+
         stack.push(obj);
-        LogUtil.d("statemachine stack: push : " + stack.size());
+        if (Settings.USE_LOG) {
+            StringBuffer sb = new StringBuffer();
+
+            sb.append("+++++ statemachine stack: push : " + stack.size() + " ");
+            Iterator<Object> it = stack.iterator();
+            while (it.hasNext()) {
+                Object element = it.next();
+                sb.append(element.getClass().getName() + " ");
+            }
+            LogUtil.d(sb.toString());
+        }
     }
 
     public synchronized Object pop() {
-        LogUtil.d("statemachine stack: pop : " + (stack.size() - 1));
+
+        if (Settings.USE_LOG) {
+            StringBuffer sb = new StringBuffer();
+
+            sb.append("----- statemachine stack: pop : " + (stack.size() - 1) + " ");
+            Iterator<Object> it = stack.iterator();
+            while (it.hasNext()) {
+                Object element = it.next();
+                sb.append(element.getClass().getName() + " ");
+            }
+            LogUtil.d(sb.toString());
+        }
         return stack.pop();
     }
 

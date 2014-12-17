@@ -42,7 +42,9 @@ public class ReadObjectVertex extends State {
         switch (input) {
         case PAREN_CHUNK_END:
             MQOObject.MQOVertex vertex = new MQOObject.MQOVertex(datas);
-            sm.push(vertex);
+            MQOObject object = (MQOObject) sm.pop();
+            object.setVertex(vertex);
+            sm.push(object);
             break;
         }
 
