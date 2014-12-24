@@ -24,14 +24,29 @@ public class MQOParser {
 
         if (null != filename) {
             mqofile = new File(filename);
-            bis = new BufferedInputStream(new FileInputStream(mqofile));
-            lexicalAnalyzer = new LexicalAnalyzer(bis);
+            this.open(mqofile);
+        }
+    }
+
+
+    public void open(File file) throws FileNotFoundException {
+
+        if (null != file) {
+            mqofile = file;
+            if (mqofile.exists() && mqofile.isFile()) {
+                bis = new BufferedInputStream(new FileInputStream(mqofile));
+                lexicalAnalyzer = new LexicalAnalyzer(bis);
+            }
+            else {
+                throw new FileNotFoundException("illeagal filename: " + file.getName());
+            }
         }
         else {
             throw new FileNotFoundException("filename is null");
         }
 
     }
+
 
     public MQOData parse() throws IOException, StateTransferException, LoadStateException {
 
