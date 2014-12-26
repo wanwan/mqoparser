@@ -6,7 +6,7 @@ import org.zaregoto.mqoparser.model.MQOMaterial;
 import org.zaregoto.mqoparser.parser.LexicalElement;
 import org.zaregoto.mqoparser.parser.State;
 import org.zaregoto.mqoparser.parser.StateMachine;
-import org.zaregoto.mqoparser.parser.exception.StateTransferException;
+import org.zaregoto.mqoparser.exception.StateTransferException;
 
 import java.util.ArrayList;
 

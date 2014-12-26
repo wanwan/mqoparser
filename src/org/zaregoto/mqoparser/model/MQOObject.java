@@ -10,9 +10,13 @@ import java.nio.ShortBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.zip.DataFormatException;
 
 
 public class MQOObject {
+
+    private static final int BYTES_PER_FLOAT = 4;
+
 
     enum SHADING {
         FLAT_SHADING,
@@ -282,6 +286,39 @@ public class MQOObject {
     }
 
 
+    public FloatBuffer generateVertexBuffer() {
+
+        FloatBuffer fb = null;
+        float[] array;
+
+        if (null != vertex && null != vertex.getDatas()) {
+            fb = ByteBuffer.allocateDirect(vertex.getDatas().size() * BYTES_PER_FLOAT).order(ByteOrder.nativeOrder()).asFloatBuffer();
+            array = vertex.getDatasPrimitive();
+            if (null != array) {
+                fb.put(array);
+            }
+            fb.position(0);
+        }
+
+        return fb;
+    }
+
+
+    public FloatBuffer generateIndexBuffer() throws DataFormatException {
+
+        for (MQOFace face : faces) {
+            if (3 == face.getIndex().size()) {
+
+            }
+            else {
+                throw new DataFormatException("except triangle polygon is not supported yet");
+            }
+        }
+
+        return null;
+    }
+
+
 //	public void setPolygons(MQOPolygon polygons) {
 //		this.polygons = polygons;
 //	}
@@ -417,6 +454,22 @@ public class MQOObject {
 
         public ArrayList<Float> getDatas() {
             return datas;
+        }
+
+        public float[] getDatasPrimitive() {
+
+            float[] ret = null;
+            int i = 0;
+
+            if (null != datas) {
+                ret = new float[datas.size()];
+                for (Float f : datas) {
+                    ret[i] = (f != null) ? f.floatValue() : Float.NaN;
+                    i++;
+                }
+            }
+
+            return ret;
         }
     }
 

@@ -1,4 +1,4 @@
-package org.zaregoto.mqoparser.parser.exception;
+package org.zaregoto.mqoparser.exception;
 
 
 public class LoadStateException extends Exception {

@@ -4,7 +4,7 @@ package org.zaregoto.mqoparser.parser.states.material;
 import org.zaregoto.mqoparser.parser.LexicalElement;
 import org.zaregoto.mqoparser.parser.State;
 import org.zaregoto.mqoparser.parser.StateMachine;
-import org.zaregoto.mqoparser.parser.exception.StateTransferException;
+import org.zaregoto.mqoparser.exception.StateTransferException;
 
 public class ReadMaterialCol extends State {
     @Override

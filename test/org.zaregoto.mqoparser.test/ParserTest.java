@@ -1,17 +1,15 @@
 package org.zaregoto.mqoparser.test;
 
-import junit.framework.TestCase;
 import org.junit.*;
 import org.zaregoto.mqoparser.model.MQOData;
 import org.zaregoto.mqoparser.model.MQOHeader;
 import org.zaregoto.mqoparser.model.MQOIncludeXml;
 import org.zaregoto.mqoparser.model.MQOScene;
 import org.zaregoto.mqoparser.parser.MQOParser;
-import org.zaregoto.mqoparser.parser.exception.LoadStateException;
-import org.zaregoto.mqoparser.parser.exception.StateTransferException;
+import org.zaregoto.mqoparser.exception.LoadStateException;
+import org.zaregoto.mqoparser.exception.StateTransferException;
 import org.zaregoto.mqoparser.util.LogUtil;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;

@@ -3,7 +3,7 @@ package org.zaregoto.mqoparser.parser.states.object;
 import org.zaregoto.mqoparser.parser.LexicalElement;
 import org.zaregoto.mqoparser.parser.State;
 import org.zaregoto.mqoparser.parser.StateMachine;
-import org.zaregoto.mqoparser.parser.exception.StateTransferException;
+import org.zaregoto.mqoparser.exception.StateTransferException;
 
 
 public class ReadObjectLatheAxis extends State {

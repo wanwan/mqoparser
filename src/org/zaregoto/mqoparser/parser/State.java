@@ -1,6 +1,6 @@
 package org.zaregoto.mqoparser.parser;
 
-import org.zaregoto.mqoparser.parser.exception.StateTransferException;
+import org.zaregoto.mqoparser.exception.StateTransferException;
 
 
 public abstract class State {

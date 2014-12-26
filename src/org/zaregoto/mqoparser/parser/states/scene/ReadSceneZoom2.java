@@ -4,7 +4,7 @@ import org.zaregoto.mqoparser.model.MQOScene;
 import org.zaregoto.mqoparser.parser.LexicalElement;
 import org.zaregoto.mqoparser.parser.State;
 import org.zaregoto.mqoparser.parser.StateMachine;
-import org.zaregoto.mqoparser.parser.exception.StateTransferException;
+import org.zaregoto.mqoparser.exception.StateTransferException;
 
 
 public class ReadSceneZoom2 extends State {

@@ -4,12 +4,9 @@ import org.zaregoto.mqoparser.model.MQOObject;
 import org.zaregoto.mqoparser.parser.LexicalElement;
 import org.zaregoto.mqoparser.parser.State;
 import org.zaregoto.mqoparser.parser.StateMachine;
-import org.zaregoto.mqoparser.parser.exception.StateTransferException;
+import org.zaregoto.mqoparser.exception.StateTransferException;
 
 import java.util.ArrayList;
-
-import static org.zaregoto.mqoparser.model.MQOObject.*;
-import static org.zaregoto.mqoparser.parser.LexicalElement.*;
 
 
 public class ReadObjectVertex extends State {

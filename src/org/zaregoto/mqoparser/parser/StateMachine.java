@@ -2,8 +2,8 @@ package org.zaregoto.mqoparser.parser;
 
 import org.zaregoto.mqoparser.Settings;
 import org.zaregoto.mqoparser.model.MQOData;
-import org.zaregoto.mqoparser.parser.exception.LoadStateException;
-import org.zaregoto.mqoparser.parser.exception.StateTransferException;
+import org.zaregoto.mqoparser.exception.LoadStateException;
+import org.zaregoto.mqoparser.exception.StateTransferException;
 import org.zaregoto.mqoparser.util.LogUtil;
 
 import javax.tools.*;
