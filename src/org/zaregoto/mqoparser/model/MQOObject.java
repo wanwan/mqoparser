@@ -3,10 +3,7 @@ package org.zaregoto.mqoparser.model;
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.lang.reflect.Array;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
-import java.nio.ShortBuffer;
+import java.nio.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -16,7 +13,7 @@ import java.util.zip.DataFormatException;
 public class MQOObject {
 
     private static final int BYTES_PER_FLOAT = 4;
-
+    private static final int BYTES_PER_INT = 4;
 
     enum SHADING {
         FLAT_SHADING,
@@ -304,18 +301,49 @@ public class MQOObject {
     }
 
 
-    public FloatBuffer generateIndexBuffer() throws DataFormatException {
+    public IntBuffer generateIndexBuffer() throws DataFormatException {
+
+        IntBuffer ib = null;
+        ArrayList<Integer> index = new ArrayList<Integer>();
+        int[] array;
 
         for (MQOFace face : faces) {
             if (3 == face.getIndex().size()) {
-
+                for (Integer i : face.getIndex())
+                index.add(i.intValue());
             }
             else {
                 throw new DataFormatException("except triangle polygon is not supported yet");
             }
         }
 
-        return null;
+        if (index.size() > 0) {
+            ib = ByteBuffer.allocateDirect(index.size() * BYTES_PER_INT).order(ByteOrder.nativeOrder()).asIntBuffer();
+            array = convertIndexArrayListToPrimitiveList(index);
+            if (null != array) {
+                ib.put(array);
+            }
+            ib.position(0);
+        }
+
+        return ib;
+    }
+
+    private int[] convertIndexArrayListToPrimitiveList(ArrayList<Integer> index) {
+
+        int[] ret = null;
+        int i = 0;
+
+        if (index.size() > 0) {
+            ret = new int[index.size()];
+        }
+
+        for (Integer idx: index) {
+            ret[i] = idx.intValue();
+            i++;
+        }
+
+        return ret;
     }
 
 
