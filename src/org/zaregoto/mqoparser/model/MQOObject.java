@@ -13,7 +13,7 @@ import java.util.zip.DataFormatException;
 public class MQOObject {
 
     private static final int BYTES_PER_FLOAT = 4;
-    private static final int BYTES_PER_INT = 4;
+    private static final int BYTES_PER_SHORT = 2;
 
     enum SHADING {
         FLAT_SHADING,
@@ -301,11 +301,11 @@ public class MQOObject {
     }
 
 
-    public IntBuffer generateIndexBuffer() throws DataFormatException {
+    public ShortBuffer generateIndexBuffer() throws DataFormatException {
 
-        IntBuffer ib = null;
+        ShortBuffer sb = null;
         ArrayList<Integer> index = new ArrayList<Integer>();
-        int[] array;
+        short[] array;
 
         for (MQOFace face : faces) {
             if (3 == face.getIndex().size()) {
@@ -318,28 +318,28 @@ public class MQOObject {
         }
 
         if (index.size() > 0) {
-            ib = ByteBuffer.allocateDirect(index.size() * BYTES_PER_INT).order(ByteOrder.nativeOrder()).asIntBuffer();
+            sb = ByteBuffer.allocateDirect(index.size() * BYTES_PER_SHORT).order(ByteOrder.nativeOrder()).asShortBuffer();
             array = convertIndexArrayListToPrimitiveList(index);
             if (null != array) {
-                ib.put(array);
+                sb.put(array);
             }
-            ib.position(0);
+            sb.position(0);
         }
 
-        return ib;
+        return sb;
     }
 
-    private int[] convertIndexArrayListToPrimitiveList(ArrayList<Integer> index) {
+    private short[] convertIndexArrayListToPrimitiveList(ArrayList<Integer> index) {
 
-        int[] ret = null;
+        short[] ret = null;
         int i = 0;
 
         if (index.size() > 0) {
-            ret = new int[index.size()];
+            ret = new short[index.size()];
         }
 
         for (Integer idx: index) {
-            ret[i] = idx.intValue();
+            ret[i] = idx.shortValue();
             i++;
         }
 
