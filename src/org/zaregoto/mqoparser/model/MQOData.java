@@ -120,4 +120,16 @@ public class MQOData {
         return str.toString();
     }
 
+    public MQOObject getObject(String objName) {
+
+        MQOObject mqoObject = null;
+
+        for (MQOObject obj: objects) {
+            if (obj.getName().equals(objName)) {
+                mqoObject = obj;
+            }
+        }
+
+        return mqoObject;
+    }
 }
